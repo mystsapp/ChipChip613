@@ -1,0 +1,29 @@
+﻿@model ChiPhiViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+<br />
+<br />
+<br />
+<br />
+<select asp-for="ChiPhi.NhapHangId" class="form-control border-input" id="ddlHangNhap"
+        asp-items="@(new SelectList(Model.NhapHangs,"Id","TenHang", "4"))">
+</select>
+
+<input asp-for="ChiPhi.NhapHangId" class="form-control" />
+
+<form asp-action="Index" method="get" id="frmDdlHangNhap">
+    <input type="hidden" name="ddlHangNhapId" id="hidDdlHangNhap" />
+</form>
+<script>
+    $('#ddlHangNhap').change(function () {
+        ddlHangNhapId = $(this).val();
+        
+        $('#hidDdlHangNhap').val(ddlHangNhapId);
+
+        $('#frmDdlHangNhap').submit();
+    })
+</script>

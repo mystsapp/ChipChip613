@@ -1,0 +1,138 @@
+﻿@model NhapHangViewModel
+
+@{
+    ViewData["Title"] = "Eidt";
+}
+
+<div class="card ">
+    <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm Mới Tour</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <form method="post" autocomplete="off">
+            <div class="p-4 border rounded bg-secondary">
+                <input type="hidden" asp-for="NhapHang.Id" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group row">
+
+                    <div class="col-md-4">
+                        <label asp-for="NhapHang.TenHang" class="control-label"></label>
+                        <input asp-for="NhapHang.TenHang" class="form-control" />
+                        <span asp-validation-for="NhapHang.TenHang" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="NhapHang.DVT" class="control-label"></label>
+                        <input asp-for="NhapHang.DVT" class="form-control" />
+                        <span asp-validation-for="NhapHang.DVT" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="NhapHang.SoLuong" class="control-label"></label>
+                        <input type="text" asp-for="NhapHang.SoLuong" class="form-control txtSoLuong numbers" />
+                        <span asp-validation-for="NhapHang.SoLuong" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="NhapHang.DVT2" class="control-label"></label>
+                        <input asp-for="NhapHang.DVT2" class="form-control" />
+                        <span asp-validation-for="NhapHang.DVT2" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="NhapHang.SoLuong2" class="control-label"></label>
+                        <input type="text" asp-for="NhapHang.SoLuong2" class="form-control txtSoLuong numbers" />
+                        <span asp-validation-for="NhapHang.SoLuong2" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <div class="col-md-3">
+                        <label asp-for="NhapHang.DonGia" class="control-label "></label>
+                        <input type="text" asp-for="NhapHang.DonGia" asp-format="{0:0,0}" class="form-control numbers txtDonGia" />
+                        <span asp-validation-for="NhapHang.DonGia" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="NhapHang.ThanhTien" class="control-label "></label>
+                        <input asp-for="NhapHang.ThanhTien" asp-format="{0:0,0}" class="form-control txtThanhTien" readonly />
+                        <span asp-validation-for="NhapHang.ThanhTien" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="NhapHang.NgayNhap" class="control-label"></label>
+                        <input asp-for="NhapHang.NgayNhap" class="form-control" />
+                        <span asp-validation-for="NhapHang.NgayNhap" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="NhapHang.ChiPhiKhac" class="control-label "></label>
+                        <input asp-for="NhapHang.ChiPhiKhac" asp-format="{0:0,0}" class="form-control numbers txtNhapHangKhac" />
+                        <span asp-validation-for="NhapHang.ChiPhiKhac" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <div class="col-md-3">
+                        <label asp-for="NhapHang.NoiNhap" class="control-label"></label>
+                        <input asp-for="NhapHang.NoiNhap" class="form-control" />
+                        <span asp-validation-for="NhapHang.NoiNhap" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="NhapHang.DTNoiNhap" class="control-label"></label>
+                        <input asp-for="NhapHang.DTNoiNhap" class="form-control" />
+                        <span asp-validation-for="NhapHang.DTNoiNhap" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1">
+                        <label asp-for="NhapHang.TrangThai" class="control-label"></label>
+                        <br />
+                        <input asp-for="NhapHang.TrangThai" />
+                    </div>
+
+                    <div class="col-md-5">
+                        <label asp-for="NhapHang.GhiChu" class="control-label"></label>
+                        <input asp-for="NhapHang.GhiChu" class="form-control" />
+                        <span asp-validation-for="NhapHang.GhiChu" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
+                    <a class="btn btn-success" asp-controller="NhapHangs" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect"><i class="fas fa-backward"></i></a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+@section Scripts{
+    @*<script>
+
+            $(function () {
+                $(".datepicker").datepicker({
+                    dateFormat: 'dd/mm/yy'
+                });
+            });
+        </script>*@
+
+    <script src="~/js/NhapHang/editController.js"></script>
+
+}
+

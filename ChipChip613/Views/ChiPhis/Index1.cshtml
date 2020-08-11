@@ -1,0 +1,137 @@
+﻿@model ChiPhiViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<br />
+<br />
+
+<div class="card ">
+    <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm chi phí</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <form method="post" asp-action="Create" asp-controller="ChiPhis" autocomplete="off">
+            <div class="p-4 border rounded bg-secondary">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group row">
+
+                    <div class="col-md-6">
+                        <label asp-for="ChiPhi.NhapHangId" class="control-label"></label>
+                        @*<select asp-for="ChiPhi.NhapHangId" class="form-control ddlHangNhap"
+                                asp-items="@(new SelectList(Model.NhapHangs, "Id", "TenHang", 4))" >
+                            <option value="0">-- khac --</option>
+                        </select>*@
+
+                    <select asp-for="ChiPhi.NhapHangId" class="form-control border-input" id="ddlHangNhap"
+                            asp-items="@(new SelectList(Model.NhapHangs,"Id","TenHang"))">
+                        <option value="0">-- khac --</option>
+                    </select>
+
+
+                        <span asp-validation-for="ChiPhi.NhapHangId" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="ChiPhi.ChiPhiKhac" class="control-label"></label>
+                        <input asp-for="ChiPhi.ChiPhiKhac" class="form-control" />
+                        <span asp-validation-for="ChiPhi.ChiPhiKhac" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label asp-for="ChiPhi.DVT" class="control-label"></label>
+                        <input asp-for="ChiPhi.DVT" class="form-control" />
+                        <span asp-validation-for="ChiPhi.DVT" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="ChiPhi.SoLuong" class="control-label"></label>
+                        <input asp-for="ChiPhi.SoLuong" class="form-control txtSoLuong" />
+                        <span asp-validation-for="ChiPhi.SoLuong" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="ChiPhi.DVT2" class="control-label"></label>
+                        <input asp-for="ChiPhi.DVT2" class="form-control " />
+                        <span asp-validation-for="ChiPhi.DVT2" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="ChiPhi.SoLuong2" class="control-label "></label>
+                        <input type="text" asp-for="ChiPhi.SoLuong2" class="form-control numbers txtSoLuong2" />
+                        <span asp-validation-for="ChiPhi.SoLuong2" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="ChiPhi.DonGia" class="control-label "></label>
+                        <input type="text" asp-for="ChiPhi.DonGia" class="form-control txtDonGia numbers" />
+                        <span asp-validation-for="ChiPhi.DonGia" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="ChiPhi.ThanhTien" class="control-label"></label>
+                        <input asp-for="ChiPhi.ThanhTien" class="form-control numbers txtThanhTien" />
+                        <span asp-validation-for="ChiPhi.ThanhTien" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <div class="col-md-12">
+                        <label asp-for="ChiPhi.GhiChu" class="control-label "></label>
+                        <input type="text" asp-for="ChiPhi.GhiChu" class="form-control numbers txtNhapHangKhac" />
+                        <span asp-validation-for="ChiPhi.GhiChu" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
+                    <a class="btn btn-success" asp-controller="NhapHangs" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect"><i class="fas fa-backward"></i></a>
+                </div>
+            </div>
+        </form>
+
+        <!--ddlNhapHang change-->
+        
+        <form asp-action="Index1" method="get" id="frmDdlHangNhap">
+            <input type="hidden" name="ddlHangNhapId" id="hidDdlHangNhap" />
+        </form>
+        <!--ddlNhapHang change-->
+    </div>
+</div>
+
+
+@*<select asp-for="ChiPhi.NhapHangId" class="form-control border-input" id="ddlHangNhap"
+            asp-items="@(new SelectList(Model.NhapHangs,"Id","TenHang"))">
+    </select>*@
+
+<input asp-for="ChiPhi.NhapHangId" class="form-control" />
+
+
+@section Scripts{
+    <script>
+        $('#ddlHangNhap').change(function () {
+            ddlHangNhapId = $(this).val();
+
+            $('#hidDdlHangNhap').val(ddlHangNhapId);
+
+            $('#frmDdlHangNhap').submit();
+        })
+
+    </script>
+}
