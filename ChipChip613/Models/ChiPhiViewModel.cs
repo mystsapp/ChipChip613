@@ -14,7 +14,7 @@ namespace ChipChip613.Models
         public IEnumerable<NhapHang> NhapHangs { get; set; }
         public ChiPhi ChiPhi { get; set; }
         public string StrUrl { get; set; }
-        public int SoLuongCu { get; set; }
-        public int SoLuong2Cu { get; set; }
+        public decimal SoLuongCu { get; set; }
+        public decimal SoLuong2Cu { get; set; }
     }
 }

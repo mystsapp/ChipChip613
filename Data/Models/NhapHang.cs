@@ -34,10 +34,10 @@ namespace Data.Models
         public decimal DonGia { get; set; }
 
         [DisplayName("Số lượng")]
-        public int SoLuong { get; set; }
+        public decimal SoLuong { get; set; }
 
         [DisplayName("Số lượng 2")]
-        public int SoLuong2 { get; set; }
+        public decimal SoLuong2 { get; set; }
 
         public DateTime NgayTao { get; set; }
 
@@ -57,14 +57,14 @@ namespace Data.Models
         public decimal ThanhTienLuu { get; set; }
 
         [DisplayName("Số lượng lưu")]
-        public int SoLuongLuu { get; set; }
+        public decimal SoLuongLuu { get; set; }
 
         [DisplayName("Đơn vị lưu")]
         [MaxLength(50), Column(TypeName = "varchar(50)")]
         public string DVTLuu { get; set; }
 
         [DisplayName("Số lượng lưu")]
-        public int SoLuong2Luu { get; set; }
+        public decimal SoLuong2Luu { get; set; }
 
         [DisplayName("Đơn vị lưu")]
         [MaxLength(50), Column(TypeName = "varchar(50)")]

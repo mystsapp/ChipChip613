@@ -40,47 +40,112 @@
                         <span asp-validation-for="ChiPhi.NhapHangId" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-6">
-                        <label asp-for="ChiPhi.ChiPhiKhac" class="control-label"></label>
-                        <input asp-for="ChiPhi.ChiPhiKhac" class="form-control " />
-                        <span asp-validation-for="ChiPhi.ChiPhiKhac" class="text-danger"></span>
-                    </div>
+                    <!-- co chon trong nhaphang -->
+                    @if (Model.ChiPhi.NhapHangId != 0)
+                    {
+                        <div class="col-md-6">
+                            <label asp-for="ChiPhi.ChiPhiKhac" class="control-label"></label>
+                            <input asp-for="ChiPhi.ChiPhiKhac" class="form-control " readonly />
+                            <span asp-validation-for="ChiPhi.ChiPhiKhac" class="text-danger"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6">
+                            <label asp-for="ChiPhi.ChiPhiKhac" class="control-label"></label>
+                            <input asp-for="ChiPhi.ChiPhiKhac" class="form-control " id="txtChiPhiKhac"/>
+                            <span asp-validation-for="ChiPhi.ChiPhiKhac" class="text-danger"></span>
+                        </div>
+                    }
+
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-md-2">
-                        <label asp-for="ChiPhi.DVT" class="control-label"></label>
-                        <input asp-for="ChiPhi.DVT" class="form-control" />
-                        <span asp-validation-for="ChiPhi.DVT" class="text-danger"></span>
-                    </div>
+                    @if (Model.ChiPhi.NhapHangId != 0)
+                    {
+                        <div class="col-md-2">
+                            <label asp-for="ChiPhi.DVT" class="control-label"></label>
+                            <input asp-for="ChiPhi.DVT" class="form-control" />
+                            <span asp-validation-for="ChiPhi.DVT" class="text-danger"></span>
+                        </div>
 
-                    <div class="col-md-2">
-                        <label asp-for="ChiPhi.SoLuong" class="control-label"></label>
-                        <input type="text" asp-for="ChiPhi.SoLuong" class="form-control txtSoLuong numbers" />
-                        <span asp-validation-for="ChiPhi.SoLuong" class="text-danger"></span>
-                    </div>
+                        <div class="col-md-2">
+                            <label asp-for="ChiPhi.SoLuong" class="control-label"></label>
+                            <input type="text" asp-for="ChiPhi.SoLuong" class="form-control txtSoLuong numbers" />
+                            <span asp-validation-for="ChiPhi.SoLuong" class="text-danger"></span>
+                        </div>
 
-                    <div class="col-md-2">
-                        <label asp-for="ChiPhi.DVT2" class="control-label"></label>
-                        <input asp-for="ChiPhi.DVT2" class="form-control " />
-                        <span asp-validation-for="ChiPhi.DVT2" class="text-danger"></span>
-                    </div>
+                        <div class="col-md-2">
+                            <label asp-for="ChiPhi.DVT2" class="control-label"></label>
+                            <input asp-for="ChiPhi.DVT2" class="form-control " />
+                            <span asp-validation-for="ChiPhi.DVT2" class="text-danger"></span>
+                        </div>
 
-                    <div class="col-md-2">
-                        <label asp-for="ChiPhi.SoLuong2" class="control-label "></label>
-                        <input type="text" asp-for="ChiPhi.SoLuong2" class="form-control numbers txtSoLuong2" />
-                        <span asp-validation-for="ChiPhi.SoLuong2" class="text-danger"></span>
-                    </div>
+                        <!-- co sl2 trong nhaphang -->
+                        @if (Model.ChiPhi.SoLuong2 != 0)
+                        {
+                            <div class="col-md-2">
+                                <label asp-for="ChiPhi.SoLuong2" class="control-label "></label>
+                                <input type="text" asp-for="ChiPhi.SoLuong2" class="form-control numbers txtSoLuong2" />
+                                <span asp-validation-for="ChiPhi.SoLuong2" class="text-danger"></span>
+                            </div>
 
-                    <div class="col-md-2">
-                        <label asp-for="ChiPhi.DonGia" class="control-label "></label>
-                        <input type="text" asp-for="ChiPhi.DonGia" asp-format="{0:0,0}" class="form-control txtDonGia numbers" />
-                        <span asp-validation-for="ChiPhi.DonGia" class="text-danger"></span>
-                    </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-2">
+                                <label asp-for="ChiPhi.SoLuong2" class="control-label "></label>
+                                <input type="text" asp-for="ChiPhi.SoLuong2" class="form-control numbers txtSoLuong2" readonly />
+                                <span asp-validation-for="ChiPhi.SoLuong2" class="text-danger"></span>
+                            </div>
+
+                        }
+
+                        <div class="col-md-2">
+                            <label asp-for="ChiPhi.DonGia" class="control-label "></label>
+                            <input type="text" asp-for="ChiPhi.DonGia" asp-format="{0:0,0}" class="form-control txtDonGia numbers" />
+                            <span asp-validation-for="ChiPhi.DonGia" class="text-danger"></span>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="col-md-2">
+                            <label asp-for="ChiPhi.DVT" class="control-label"></label>
+                            <input asp-for="ChiPhi.DVT" class="form-control" readonly />
+                            <span asp-validation-for="ChiPhi.DVT" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="ChiPhi.SoLuong" class="control-label"></label>
+                            <input type="text" asp-for="ChiPhi.SoLuong" class="form-control txtSoLuong numbers" readonly />
+                            <span asp-validation-for="ChiPhi.SoLuong" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="ChiPhi.DVT2" class="control-label"></label>
+                            <input asp-for="ChiPhi.DVT2" class="form-control " readonly />
+                            <span asp-validation-for="ChiPhi.DVT2" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="ChiPhi.SoLuong2" class="control-label "></label>
+                            <input type="text" asp-for="ChiPhi.SoLuong2" class="form-control numbers txtSoLuong2" readonly />
+                            <span asp-validation-for="ChiPhi.SoLuong2" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="ChiPhi.DonGia" class="control-label "></label>
+                            <input type="text" asp-for="ChiPhi.DonGia" asp-format="{0:0,0}" class="form-control txtDonGia numbers" readonly />
+                            <span asp-validation-for="ChiPhi.DonGia" class="text-danger"></span>
+                        </div>
+
+                    }
+
 
                     <div class="col-md-2">
                         <label asp-for="ChiPhi.ThanhTien" class="control-label"></label>
-                        <input asp-for="ChiPhi.ThanhTien" class="form-control txtThanhTien" asp-format="{0:0,0}"/>
+                        <input asp-for="ChiPhi.ThanhTien" class="form-control txtThanhTien numbers" asp-format="{0:0,0}" />
                         <span asp-validation-for="ChiPhi.ThanhTien" class="text-danger"></span>
                     </div>
 
@@ -111,7 +176,7 @@
         </form>
 
         <!--ddlNhapHang change-->
-        
+
     </div>
 
 </div>

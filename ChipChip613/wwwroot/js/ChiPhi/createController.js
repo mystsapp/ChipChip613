@@ -33,7 +33,7 @@ var createController = {
 
     },
     txtSoLuong2BlurFunction: function () { // kt so luong hang va sl2 neu co
-        var soLuong = $('.txtSoLuong2').val();
+        var soLuong2 = $('.txtSoLuong2').val();
         hangNhapId = $('.ddlHangNhap').val();
 
         $.ajax({

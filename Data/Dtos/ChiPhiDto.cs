@@ -24,10 +24,10 @@ namespace Data.Dtos
         public string DVT2 { get; set; }
 
         [DisplayName("Số lượng")]
-        public int SoLuong { get; set; }
+        public decimal SoLuong { get; set; }
 
         [DisplayName("Số lượng 2")]
-        public int SoLuong2 { get; set; }
+        public decimal SoLuong2 { get; set; }
 
         [DisplayName("Dơn giá")]
         public decimal DonGia { get; set; }

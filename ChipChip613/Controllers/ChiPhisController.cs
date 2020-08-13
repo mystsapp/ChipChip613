@@ -70,10 +70,13 @@ namespace ChipChip613.Controllers
                 ChiPhiVM.ChiPhi.DonGia = nhapHang.DonGia;
                 ChiPhiVM.ChiPhi.DVT = nhapHang.DVT;
                 ChiPhiVM.ChiPhi.DVT2 = nhapHang.DVT2;
+                ChiPhiVM.ChiPhi.SoLuong2 = nhapHang.SoLuong2;
+                ChiPhiVM.ChiPhi.SoLuong = nhapHang.SoLuong;
                 ChiPhiVM.ChiPhi.ThanhTien = nhapHang.DonGia * (decimal)ChiPhiVM.ChiPhi.SoLuong;
 
             }
             // frm DdlHangNhap change
+          
           
             return View(ChiPhiVM);
         }
@@ -278,6 +281,31 @@ namespace ChipChip613.Controllers
             {
                 status = status,
                 sLuong2 = sLuong2,
+                thanhTien = thanhTien
+            });
+        }
+        
+        public JsonResult KiemTraSL2(decimal soLuong2 = 1, long hangNhapId = 0)
+        {
+            var nhapHang = _unitOfWork.nhapHangRepository.GetById(hangNhapId);
+            bool status = false;
+            decimal sLuong = 0;
+            decimal thanhTien = 0;
+
+            if(soLuong2 <= nhapHang.SoLuong2) // con hang
+            {
+                status = true;
+                if(nhapHang.SoLuong != 0) // co dien sl 2
+                {
+                    sLuong = (soLuong2 * nhapHang.SoLuong) / nhapHang.SoLuong2;
+                }
+                thanhTien = nhapHang.DonGia * sLuong;
+            }
+
+            return Json(new
+            {
+                status = status,
+                sLuong = sLuong,
                 thanhTien = thanhTien
             });
         }

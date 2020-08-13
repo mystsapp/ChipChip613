@@ -4,14 +4,16 @@ using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(ChiChip613DbContext))]
-    partial class ChiChip613DbContextModelSnapshot : ModelSnapshot
+    [Migration("20200813111823_fixNhapHangTbl")]
+    partial class fixNhapHangTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,11 +57,11 @@ namespace Data.Migrations
                     b.Property<long>("NhapHangId")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("SoLuong")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("int");
 
-                    b.Property<decimal>("SoLuong2")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("SoLuong2")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("ThanhTien")
                         .HasColumnType("decimal(18,2)");
