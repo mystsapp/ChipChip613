@@ -12,6 +12,7 @@ namespace Data.Repository
         IDonHangRepository donHangRepository { get; }
         INhapHangRepository nhapHangRepository { get; }
         IChiPhiRepository chiPhiRepository { get; }
+        ISPDaChonRepository sPDaChonRepository { get; }
         Task<int> Complete();
     }
     public class UnitOfwork : IUnitOfWork
@@ -26,6 +27,7 @@ namespace Data.Repository
             donHangRepository = new DonHangRepository(_context);
             nhapHangRepository = new NhapHangRepository(_context);
             chiPhiRepository = new ChiPhiRepository(_context);
+            sPDaChonRepository = new SPDaChonRepository(_context);
 
         }
 
@@ -36,6 +38,8 @@ namespace Data.Repository
         public INhapHangRepository nhapHangRepository { get; }
 
         public IChiPhiRepository chiPhiRepository { get; }
+
+        public ISPDaChonRepository sPDaChonRepository { get; }
 
         public async Task<int> Complete()
         {

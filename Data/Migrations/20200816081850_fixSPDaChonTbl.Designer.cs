@@ -4,14 +4,16 @@ using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(ChiChip613DbContext))]
-    partial class ChiChip613DbContextModelSnapshot : ModelSnapshot
+    [Migration("20200816081850_fixSPDaChonTbl")]
+    partial class fixSPDaChonTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,35 +210,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NhapHangs");
-                });
-
-            modelBuilder.Entity("Data.Models.SPDaChon", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("DonGia")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<long>("DonHangId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("SoLuong")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenSanPham")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<decimal>("ThanhTien")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SPDaChons");
                 });
 
             modelBuilder.Entity("Data.Models.ChiTietDonHang", b =>

@@ -1,32 +1,33 @@
-﻿using ChipChip613.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ChipChip613.Models;
 using Data.Repository;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Schema;
-using System;
-using System.Threading.Tasks;
 
 namespace ChipChip613.Controllers
 {
-    public class NhapHangsController : BaseController
+    public class DonHangsController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
-
         [BindProperty]
-        public NhapHangViewModel NhapHangVM { get; set; }
+        public DonHangViewModel DonHangVM { get; set; }
 
-        public NhapHangsController(IUnitOfWork unitOfWork)
+        public DonHangsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            NhapHangVM = new NhapHangViewModel()
+            DonHangVM = new DonHangViewModel()
             {
-                NhapHang = new Data.Models.NhapHang()
+                DonHang = new Data.Models.DonHang(),
+                ChiTietDonHang = new Data.Models.ChiTietDonHang()
             };
         }
 
         public IActionResult Index(string searchString = null, string searchFromDate = null, string searchToDate = null, int page = 1)
         {
-            NhapHangVM.StrUrl = UriHelper.GetDisplayUrl(Request);
+            DonHangVM.StrUrl = UriHelper.GetDisplayUrl(Request);
             ViewBag.searchString = searchString;
             ViewBag.searchFromDate = searchFromDate;
             ViewBag.searchToDate = searchToDate;
@@ -44,21 +45,17 @@ namespace ChipChip613.Controllers
             //    }
             //}
 
-            NhapHangVM.NhapHangs = _unitOfWork.nhapHangRepository.ListNhapHang(searchString, searchFromDate, searchToDate, page);
-            if (NhapHangVM.NhapHangs == null)
-            {
-                NhapHangVM.NhapHangs = _unitOfWork.nhapHangRepository.ListNhapHang("", "", "", 1);
-                SetAlert("Lỗi định dạng ngày tháng.", "error");
-            }
-            return View(NhapHangVM);
+            DonHangVM.DonHangDtos = _unitOfWork.donHangRepository.ListDonHang(searchString, searchFromDate, searchToDate, page);
+            return View(DonHangVM);
         }
 
         public IActionResult Create(string strUrl)
         {
-            NhapHangVM.StrUrl = strUrl;
-            NhapHangVM.NhapHang.DonGia = 0;
-            NhapHangVM.NhapHang.SoLuong = 1;
-            return View(NhapHangVM);
+            DonHangVM.StrUrl = strUrl;
+            DonHangVM.DonHang.KhachHang = "Khách lẽ";
+
+            DonHangVM.ChiTietDonHang.SoLuong = 1;
+            return View(DonHangVM);
         }
 
         [HttpPost, ActionName("Create")]
@@ -67,19 +64,15 @@ namespace ChipChip613.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(NhapHangVM);
+                return View(DonHangVM);
             }
 
-            //NguyenLieuVM.NguyenLieu = new Data.Models.NguyenLieu();
-            NhapHangVM.NhapHang.NgayTao = DateTime.Now;
-            NhapHangVM.NhapHang.NguoiTao = "Admin";
-            NhapHangVM.NhapHang.ThanhTienLuu = NhapHangVM.NhapHang.ThanhTien;
-            NhapHangVM.NhapHang.SoLuongLuu = NhapHangVM.NhapHang.SoLuong;
-            NhapHangVM.NhapHang.DVTLuu = NhapHangVM.NhapHang.DVT;
-
+            //NganhNgheVM.DMNganhNghe = new Data.Models_IB.DMNganhNghe();
+            DonHangVM.DonHang.NgayTao = DateTime.Now;
+            DonHangVM.DonHang.NguoiTao = "Admin";
             try
             {
-                _unitOfWork.nhapHangRepository.Create(NhapHangVM.NhapHang);
+                _unitOfWork.donHangRepository.Create(DonHangVM.DonHang);
                 await _unitOfWork.Complete();
                 SetAlert("Thêm mới thành công.", "success");
                 return Redirect(strUrl);
@@ -87,40 +80,40 @@ namespace ChipChip613.Controllers
             catch (Exception ex)
             {
                 SetAlert(ex.Message, "error");
-                return View(NhapHangVM);
+                return View(DonHangVM);
             }
+
         }
 
-        public IActionResult Edit(long id, string strUrl)
+        public async Task<IActionResult> Edit(long id, string strUrl)
         {
-            NhapHangVM.StrUrl = strUrl;
+            DonHangVM.StrUrl = strUrl;
             if (id == 0)
                 return NotFound();
 
-            NhapHangVM.NhapHang = _unitOfWork.nhapHangRepository.GetById(id);
+            DonHangVM.DonHang = await _unitOfWork.donHangRepository.GetByIdAsync(id);
 
-            if (NhapHangVM.NhapHang == null)
+            if (DonHangVM.DonHang == null)
                 return NotFound();
 
-            return View(NhapHangVM);
+            return View(DonHangVM);
         }
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(long id, string strUrl)
         {
-            if (id != NhapHangVM.NhapHang.Id)
+            if (id != DonHangVM.DonHang.Id)
                 return NotFound();
 
             if (ModelState.IsValid)
             {
-                NhapHangVM.NhapHang.ThanhTienLuu = NhapHangVM.NhapHang.ThanhTien;
-                NhapHangVM.NhapHang.SoLuongLuu = NhapHangVM.NhapHang.SoLuong;
-                NhapHangVM.NhapHang.DVTLuu = NhapHangVM.NhapHang.DVT;
-
+                //DonHangVM.DonHang.NgaySua = DateTime.Now;
+                //DonHangVM.DonHang.NguoiSua = "Admin";
                 try
                 {
-                    _unitOfWork.nhapHangRepository.Update(NhapHangVM.NhapHang);
+
+                    _unitOfWork.donHangRepository.Update(DonHangVM.DonHang);
                     await _unitOfWork.Complete();
                     SetAlert("Cập nhật thành công", "success");
                     return Redirect(strUrl);
@@ -128,38 +121,38 @@ namespace ChipChip613.Controllers
                 catch (Exception ex)
                 {
                     SetAlert(ex.Message, "error");
-                    return View(NhapHangVM);
+                    return View(DonHangVM);
                 }
             }
 
-            return View(NhapHangVM);
+            return View(DonHangVM);
         }
 
-        public IActionResult Details(long id, string strUrl)
+        public async Task<IActionResult> Details(long id, string strUrl)
         {
-            NhapHangVM.StrUrl = strUrl;
+            DonHangVM.StrUrl = strUrl;
 
             if (id == 0)
                 return NotFound();
 
-            var nhapHang = _unitOfWork.nhapHangRepository.GetById(id);
-            NhapHangVM.NhapHang = nhapHang;
-            if (nhapHang == null)
+            var donHang = await _unitOfWork.donHangRepository.GetByIdAsync(id);
+            DonHangVM.DonHang = donHang;
+            if (donHang == null)
                 return NotFound();
 
-            return View(NhapHangVM);
+            return View(DonHangVM);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id, string strUrl)
         {
-            var nhapHang = _unitOfWork.nhapHangRepository.GetById(id);
-            if (nhapHang == null)
+            var donHang = await _unitOfWork.donHangRepository.GetByIdAsync(id);
+            if (donHang == null)
                 return NotFound();
             try
             {
-                _unitOfWork.nhapHangRepository.Delete(nhapHang);
+                _unitOfWork.donHangRepository.Delete(donHang);
                 await _unitOfWork.Complete();
                 SetAlert("Xóa thành công.", "success");
                 return Redirect(strUrl);
@@ -171,19 +164,18 @@ namespace ChipChip613.Controllers
             }
         }
 
-        public JsonResult GetThanhTien(decimal donGia = 0, int soLuong = 1, decimal chiPhiKhac = 0)
-        {
+        //public JsonResult IsStringNameAvailable(string TenCreate)
+        //{
+        //    var boolName = _unitOfWork.dMNganhNgheRepository.Find(x => x.TenNganhNghe.Trim().ToLower() == TenCreate.Trim().ToLower()).FirstOrDefault();
+        //    if (boolName == null)
+        //    {
+        //        return Json(true);
+        //    }
+        //    else
+        //    {
+        //        return Json(false);
+        //    }
+        //}
 
-            var thanhTien = donGia * (decimal)soLuong + chiPhiKhac;
-            return Json(new
-            {
-                thanhTien = thanhTien
-            });
-        }
-
-        public IActionResult DetailsRedirect(string strUrl)
-        {
-            return Redirect(strUrl);
-        }
     }
 }

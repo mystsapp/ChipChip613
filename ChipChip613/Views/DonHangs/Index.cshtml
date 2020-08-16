@@ -1,0 +1,286 @@
+﻿@model DonHangViewModel
+
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+
+
+@{
+    ViewData["Title"] = "Index";
+    int stt = 1;
+}
+
+<br />
+<br />
+
+<!-- them don hàng modal-->
+
+<div class="modal fade" id="modal-donhang" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <form asp-action="Create" method="post" autocomplete="off">
+            <div class="modal-content bg-secondary">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin đơn hàng</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group row">
+
+                        <div class="col-md-3">
+                            <label asp-for="DonHang.KhachHang" class="control-label"></label>
+                            <input asp-for="DonHang.KhachHang" class="form-control" value="Khách lẽ" />
+                            <span asp-validation-for="DonHang.KhachHang" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label asp-for="DonHang.DienThoai" class="control-label"></label>
+                            <input asp-for="DonHang.DienThoai" class="form-control" />
+                            <span asp-validation-for="DonHang.DienThoai" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="DonHang.DiaChi" class="control-label"></label>
+                            <input asp-for="DonHang.DiaChi" class="form-control" />
+                            <span asp-validation-for="DonHang.DiaChi" class="text-danger"></span>
+                        </div>
+
+                        <input type="hidden" name="strUrl" value="@Model.StrUrl" />
+                    </div>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                </div>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- them don hàng modal-->
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-donhang">Thêm Mới</button>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Danh sách đơn hàng</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Danh sách đơn hàng</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <form method="get" autocomplete="off">
+
+                <div class="container" style="padding-bottom:10px; background-color: aliceblue;" id="search">
+                    @* we will add search criteria *@
+
+                    <div class="col-md-12">
+                        <div class="row" style="padding-top: 10px;">
+
+                            <div class="col-md-3">
+                                Nhập thông tin
+                                @*@Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control", @value="@ViewData["currentFilter"]" } })*@
+                                <input class="form-control" name="searchString" value="@ViewBag.searchString" />
+                            </div>
+
+                            <div class="col-md-3">
+                                Từ ngày
+                                <input class="form-control maskInput" name="searchFromDate" value="@ViewBag.searchFromDate" />
+                            </div>
+
+                            <div class="col-md-3">
+                                Đến ngày
+                                <input class="form-control maskInput" name="searchToDate" value="@ViewBag.searchToDate" />
+                            </div>
+
+                            <!-- click row and submit to index -->
+                            @*<input type="hidden" name="id" id="hidId" />
+                                <input type="hidden" name="page" id="hidPage" />*@
+
+                            <div class="col-md-3 btn-block">
+                                <br />
+                                <button type="submit" class="btn btn-primary form-control" id="btnSubmit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <br />
+            <div style="overflow-x:auto;">
+                <table class="table mytable text-nowrap tblEMD" id="listAll">
+                    <thead>
+                        <tr class="table-info">
+                            <th>#</th>
+                            <th>STT</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().KhachHang)</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuong)</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().ThanhTien)</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().DiaChi)</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().DienThoai)</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().NgayTao)</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.DonHangDtos)
+                        {
+
+                            <tr class="cursor-pointer ">
+
+                                <td>
+                                    <div class="btn-group text-white" role="group">
+
+                                        <a class="btn btn-success btn-sm" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
+                                        <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                        @*<a class="btn btn-success btn-sm" title="Chi tiết" asp-action="Details" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                        <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">
+
+                                            <span id="confirmDeleteSpan_@item.Id" style="display: none">
+                                                <span class="text-light">Xóa?</span>
+                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                                <a href="#" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</a>
+                                            </span>
+
+                                            <span id="deleteSpan_@item.Id">
+                                                <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></a>
+                                            </span>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td>@stt</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhachHang)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong.ToString("N9"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayTao.ToShortDateString())</td>
+
+                            </tr>
+                            stt++;
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+            @if (Model.DonHangDtos != null)
+            {
+                @Html.PagedListPager((IPagedList)Model.DonHangDtos, page => Url.Action("Index", new
+           {
+               page = page,
+               option = Context.Request.Query["option"],
+               searchString = @ViewBag.searchString,
+               searchFromDate = @ViewBag.searchFromDate,
+               searchToDate = @ViewBag.searchToDate,
+           }),
+                    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+                    {
+                        LiElementClasses = new string[] { "page-item" },
+                        PageClasses = new string[] { "page-link" },
+                        MaximumPageNumbersToDisplay = 5,
+                        UlElementClasses = new[] { "pagination" },
+                        ContainerDivClasses = new[] { "pagination-container" }
+                    }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "nameListContainer" }))
+            }
+
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+
+
+@section Scripts{
+    <script>
+
+        $(function () {
+            //$("#datepicker").datepicker({
+            //    dateFormat: 'dd/mm/yy'
+            //});
+
+            $('#listAll').DataTable({
+                "paging": false,
+                "lengthChange": true,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+    @*<script src="~/js/Admin/NganhNghe/indexController.js"></script>*@
+
+    <script>
+        function confirmDelete(uniqueId, isDeleteClicked) {
+            var deleteSpan = 'deleteSpan_' + uniqueId;
+            var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+            if (isDeleteClicked) {
+                $('#' + deleteSpan).hide();
+                $('#' + confirmDeleteSpan).show();
+            } else {
+                $('#' + deleteSpan).show();
+                $('#' + confirmDeleteSpan).hide();
+            }
+        }
+    </script>
+
+
+    <style>
+        #listAll {
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #search {
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .tblEMD .cursor-pointer:hover {
+            background-color: #3E5C9A;
+            cursor: pointer;
+        }
+
+        .hoverClass {
+            background-color: #3E5C9A;
+        }
+    </style>
+}
+

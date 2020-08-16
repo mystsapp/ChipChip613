@@ -33,6 +33,7 @@ namespace ChipChip613
             services.AddTransient<IDonHangRepository, DonHangRepository>();
             services.AddTransient<INhapHangRepository, NhapHangRepository>();
             services.AddTransient<IChiPhiRepository, ChiPhiRepository>();
+            services.AddTransient<ISPDaChonRepository, SPDaChonRepository>();
             services.AddTransient<IUnitOfWork, UnitOfwork>();
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
