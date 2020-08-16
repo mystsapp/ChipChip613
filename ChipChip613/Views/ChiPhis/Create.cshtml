@@ -62,7 +62,7 @@
                     {
                         <div class="col-md-2">
                             <label asp-for="ChiPhi.DVT" class="control-label"></label>
-                            <input asp-for="ChiPhi.DVT" class="form-control" />
+                            <input asp-for="ChiPhi.DVT" class="form-control" readonly />
                             <span asp-validation-for="ChiPhi.DVT" class="text-danger"></span>
                         </div>
 
@@ -74,13 +74,14 @@
 
                         <div class="col-md-2">
                             <label asp-for="ChiPhi.DVT2" class="control-label"></label>
-                            <input asp-for="ChiPhi.DVT2" class="form-control " />
+                            <input asp-for="ChiPhi.DVT2" class="form-control " readonly />
                             <span asp-validation-for="ChiPhi.DVT2" class="text-danger"></span>
                         </div>
 
                         <!-- co sl2 trong nhaphang -->
                         @if (Model.ChiPhi.SoLuong2 != 0)
                         {
+
                             <div class="col-md-2">
                                 <label asp-for="ChiPhi.SoLuong2" class="control-label "></label>
                                 <input type="text" asp-for="ChiPhi.SoLuong2" class="form-control numbers txtSoLuong2" />
@@ -90,9 +91,10 @@
                         }
                         else
                         {
+
                             <div class="col-md-2">
                                 <label asp-for="ChiPhi.SoLuong2" class="control-label "></label>
-                                <input type="text" asp-for="ChiPhi.SoLuong2" class="form-control numbers txtSoLuong2" readonly />
+                                <input type="text" asp-for="ChiPhi.SoLuong2" class="form-control numbers txtSoLuong2" disabled />
                                 <span asp-validation-for="ChiPhi.SoLuong2" class="text-danger"></span>
                             </div>
 

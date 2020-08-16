@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -61,6 +62,13 @@ namespace ChipChip613.Controllers
         public IActionResult Create(long ddlHangNhapId, string strUrl)
         {
             ChiPhiVM.StrUrl = strUrl;
+
+            var listNhapHang = new List<NhapHang>();
+            foreach(var item in ChiPhiVM.NhapHangs)
+            {
+                listNhapHang.Add(new NhapHang() { Id = item.Id, TenHang = item.TenHang + " - " + item.NgayTao.ToShortDateString() });
+            }
+            ChiPhiVM.NhapHangs = listNhapHang;
 
             // frm DdlHangNhap change
             if (ddlHangNhapId != 0)

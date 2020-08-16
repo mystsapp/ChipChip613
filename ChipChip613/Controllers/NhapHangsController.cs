@@ -58,7 +58,6 @@ namespace ChipChip613.Controllers
             NhapHangVM.StrUrl = strUrl;
             NhapHangVM.NhapHang.DonGia = 0;
             NhapHangVM.NhapHang.SoLuong = 1;
-            NhapHangVM.NhapHang.ChiPhiKhac = 0;
             return View(NhapHangVM);
         }
 

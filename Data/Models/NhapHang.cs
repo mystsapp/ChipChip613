@@ -47,9 +47,6 @@ namespace Data.Models
         [DisplayName("Ngày nhập")]
         public DateTime NgayNhap { get; set; }
 
-        [DisplayName("Chi phí khác")]
-        public decimal? ChiPhiKhac { get; set; }
-
         [DisplayName("Thành tiền")]
         public decimal ThanhTien { get; set; }
 

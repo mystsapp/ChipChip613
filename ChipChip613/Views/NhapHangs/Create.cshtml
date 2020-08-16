@@ -80,21 +80,14 @@
                     </div>
 
                     <div class="col-md-3">
-                        <label asp-for="NhapHang.ChiPhiKhac" class="control-label "></label>
-                        <input type="text" asp-for="NhapHang.ChiPhiKhac" class="form-control numbers txtNhapHangKhac" />
-                        <span asp-validation-for="NhapHang.ChiPhiKhac" class="text-danger"></span>
+                        <label asp-for="NhapHang.NoiNhap" class="control-label"></label>
+                        <input asp-for="NhapHang.NoiNhap" class="form-control" />
+                        <span asp-validation-for="NhapHang.NoiNhap" class="text-danger"></span>
                     </div>
 
                 </div>
 
                 <div class="form-group row">
-
-
-                    <div class="col-md-3">
-                        <label asp-for="NhapHang.NoiNhap" class="control-label"></label>
-                        <input asp-for="NhapHang.NoiNhap" class="form-control" />
-                        <span asp-validation-for="NhapHang.NoiNhap" class="text-danger"></span>
-                    </div>
 
                     <div class="col-md-3">
                         <label asp-for="NhapHang.DTNoiNhap" class="control-label"></label>
@@ -108,7 +101,7 @@
                         <input asp-for="NhapHang.TrangThai" type="checkbox" />
                     </div>
 
-                    <div class="col-md-5">
+                    <div class="col-md-8">
                         <label asp-for="NhapHang.GhiChu" class="control-label"></label>
                         <input asp-for="NhapHang.GhiChu" class="form-control" />
                         <span asp-validation-for="NhapHang.GhiChu" class="text-danger"></span>

@@ -30,6 +30,10 @@ var createController = {
             $('#btnSubmit').prop('disabled', false);
             createController.txtSoLuong2BlurFunction();
         });
+        
+        $('.txtThanhTien').off('blur').on('blur', function () {
+            $('#btnSubmit').prop('disabled', false);
+        });
 
     },
     txtSoLuong2BlurFunction: function () { // kt so luong hang va sl2 neu co
@@ -81,10 +85,11 @@ var createController = {
                     return;
                 }
                 else {
+                    var thanhTien = numeral(response.thanhTien).format('0,0');
+                    $('.txtThanhTien').val(thanhTien);
                     if (response.sLuong2 !== 0) {
                         $('.txtSoLuong2').val(response.sLuong2);
-                        var thanhTien = numeral(response.thanhTien).format('0,0');
-                        $('.txtThanhTien').val(thanhTien);
+                        
                     }
                 }
                 //console.log(response.thanhTien);
