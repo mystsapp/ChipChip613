@@ -33,7 +33,7 @@ namespace ChipChip613.Controllers
 
             // sp truyen thong
             ChiTietDonHangVM.SPDaChon.SoLuong = 1;
-            ChiTietDonHangVM.SPDaChon.DonGia = 10000;
+            //ChiTietDonHangVM.SPDaChon.DonGia = 10000;
             ChiTietDonHangVM.SPDaChon.ThanhTien = (decimal)ChiTietDonHangVM.SPDaChon.SoLuong * ChiTietDonHangVM.SPDaChon.DonGia;
             // get list sp da chon
             ChiTietDonHangVM.SPDaChons = _unitOfWork.sPDaChonRepository.Find(x => x.DonHangId == donHangId);
@@ -105,7 +105,7 @@ namespace ChipChip613.Controllers
                 new SanPhamViewModel()
                 {
                     Id = 1,
-                    Name = "Súc xích"
+                    Name = "Xúc xích"
                 },
             };
         }

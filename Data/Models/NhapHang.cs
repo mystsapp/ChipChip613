@@ -73,5 +73,6 @@ namespace Data.Models
         [DisplayName("Ghi chú")]
         [MaxLength(250), Column(TypeName = "nvarchar(250)")]
         public string GhiChu { get; set; }
+        public string LogFile { get; set; }
     }
 }

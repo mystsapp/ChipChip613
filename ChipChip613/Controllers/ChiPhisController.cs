@@ -246,8 +246,27 @@ namespace ChipChip613.Controllers
             var chiPhi = _unitOfWork.chiPhiRepository.GetById(id);
             if (chiPhi == null)
                 return NotFound();
+           
             try
             {
+                //  can tru lai hang` nhap
+                if (chiPhi.NhapHangId != 0) // ko phai chiphikhac -> hang` nhap
+                {
+                    var nhapHang = _unitOfWork.nhapHangRepository.GetById(chiPhi.NhapHangId); // chac chan dung' voi hang nhap vi dung Id
+                    nhapHang.SoLuong = nhapHang.SoLuong + chiPhi.SoLuong;
+                    nhapHang.SoLuong2 = nhapHang.SoLuong2 + chiPhi.SoLuong2;
+                    nhapHang.ThanhTien = nhapHang.ThanhTien + chiPhi.ThanhTien;
+                    nhapHang.LogFile += "=========== " + "Xóa chi phí ngày: " +
+                                        DateTime.Now +
+                                        " với SL1 = " + chiPhi.SoLuong +
+                                        " SL2 = " + chiPhi.SoLuong2 +
+                                        " thành tiền = " + chiPhi.ThanhTien +
+                                        " ============";
+
+                    _unitOfWork.nhapHangRepository.Update(nhapHang);
+
+                }
+                //  can tru lai hang` nhap
                 _unitOfWork.chiPhiRepository.Delete(chiPhi);
                 await _unitOfWork.Complete();
                 SetAlert("Xóa thành công.", "success");

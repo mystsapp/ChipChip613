@@ -31,31 +31,34 @@ namespace Data.Repository
 
             //var list = GetAll().AsQueryable();
             var list = new List<ChiPhiDto>();
-            foreach(var item in _context.ChiPhis)
+            foreach (var item in _context.ChiPhis)
             {
-                list.Add(new ChiPhiDto()
-                {
-                    Id = item.Id,
-                    ChiPhiKhac = item.ChiPhiKhac,
-                    DonGia = item.DonGia,
-                    DVT = item.DVT,
-                    DVT2 = item.DVT2,
-                    GhiChu = item.GhiChu,
-                    NgayTao = item.NgayTao,
-                    NguoiTao = item.NguoiTao,
-                    SoLuong = item.SoLuong,
-                    SoLuong2 = item.SoLuong2,
-                    TenHangNhap = nhapHangs.Where(x => x.Id == item.NhapHangId).FirstOrDefault().TenHang,
-                    ThanhTien = item.ThanhTien
-                });
+                var chiPhiDto = new ChiPhiDto();
+
+                chiPhiDto.Id = item.Id;
+                chiPhiDto.ChiPhiKhac = item.ChiPhiKhac;
+                chiPhiDto.DonGia = item.DonGia;
+                chiPhiDto.DVT = item.DVT;
+                chiPhiDto.DVT2 = item.DVT2;
+                chiPhiDto.GhiChu = item.GhiChu;
+                chiPhiDto.NgayTao = item.NgayTao;
+                chiPhiDto.NguoiTao = item.NguoiTao;
+                chiPhiDto.SoLuong = item.SoLuong;
+                chiPhiDto.SoLuong2 = item.SoLuong2;
+                var nhapHangs1 = nhapHangs.Where(x => x.Id == item.NhapHangId);
+                chiPhiDto.TenHangNhap = (item.NhapHangId == 0) ? "" : nhapHangs1.FirstOrDefault().TenHang;
+                chiPhiDto.ThanhTien = item.ThanhTien;
+
+                list.Add(chiPhiDto);
+
             }
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                list = list.Where(x => x.TenHangNhap.ToLower().Contains(searchString.ToLower()) || 
-                                       x.ChiPhiKhac.ToLower().Contains(searchString.ToLower()) || 
-                                       x.DonGia.ToString().ToLower().Contains(searchString.ToLower())|| 
-                                       x.SoLuong.ToString().ToLower().Contains(searchString.ToLower())|| 
+                list = list.Where(x => x.TenHangNhap.ToLower().Contains(searchString.ToLower()) ||
+                                       x.ChiPhiKhac.ToLower().Contains(searchString.ToLower()) ||
+                                       x.DonGia.ToString().ToLower().Contains(searchString.ToLower()) ||
+                                       x.SoLuong.ToString().ToLower().Contains(searchString.ToLower()) ||
                                        x.ThanhTien.ToString().ToLower().Contains(searchString.ToLower())).ToList();
             }
 

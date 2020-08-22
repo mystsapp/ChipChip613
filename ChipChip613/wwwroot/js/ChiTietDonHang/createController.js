@@ -6,6 +6,7 @@
 
 var createController = {
     init: function () {
+        createController.sanPhamChangeFunction();
         createController.registerEven();
     },
     registerEven: function () {
@@ -29,7 +30,7 @@ var createController = {
                 var thanhTien = numeral(soLuong * 10000).format('0,0');
                 $('#txtThanhTien').val(thanhTien);
             }
-            else if (sanPham === 'Súc xích') {
+            else if (sanPham === 'Xúc xích') {
                 var thanhTien1 = numeral(soLuong * 15000).format('0,0');
                 $('#txtThanhTien').val(thanhTien1);
             }
@@ -37,20 +38,23 @@ var createController = {
         });
         
         $('#ddlSanPham').off('change').on('change', function () {
-            sanPham = $(this).val();
-            if (sanPham === 'Truyền thống') {
-                $('#txtDonGia').val(numeral(10000).format('0,0'));
-                var thanhTien = numeral($('#txtSoLuong').val() * 10000).format('0,0');
-                $('#txtThanhTien').val(thanhTien);
-            }
-            else if (sanPham === 'Súc xích') {
-                $('#txtDonGia').val(numeral(15000).format('0,0'))
-                var thanhTien1 = numeral($('#txtSoLuong').val() * 15000).format('0,0');
-                $('#txtThanhTien').val(thanhTien1);
-            }
-            createController.blurFunction();
+            
+            createController.sanPhamChangeFunction();
         });
 
+    },
+    sanPhamChangeFunction: function () {
+        sanPham = $('#ddlSanPham').val();
+        if (sanPham === 'Truyền thống') {
+            $('#txtDonGia').val(numeral(10000).format('0,0'));
+            var thanhTien = numeral($('#txtSoLuong').val() * 10000).format('0,0');
+            $('#txtThanhTien').val(thanhTien);
+        }
+        else if (sanPham === 'Xúc xích') {
+            $('#txtDonGia').val(numeral(15000).format('0,0'))
+            var thanhTien1 = numeral($('#txtSoLuong').val() * 15000).format('0,0');
+            $('#txtThanhTien').val(thanhTien1);
+        }
     }
     //blurFunction: function () {
     //    var donGia = $('.txtDonGia').val();

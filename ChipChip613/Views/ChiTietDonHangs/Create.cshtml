@@ -57,18 +57,19 @@
 
                     <div class="col-md-3">
                         <label asp-for="SPDaChon.ThanhTien" class="control-label"></label>
-                        <input type="text" asp-for="SPDaChon.ThanhTien" class="form-control numbers" asp-format="{0:0,0}" id="txtThanhTien"/>
+                        <input type="text" asp-for="SPDaChon.ThanhTien" class="form-control numbers" asp-format="{0:0,0}" id="txtThanhTien" readonly/>
                         <span asp-validation-for="SPDaChon.ThanhTien" class="text-danger"></span>
 
                     </div>
 
                     <div class="col-md-1">
 
-                        <br />
+                        <label class="control-label">Thêm</label>
                         <button type="submit" class="btn btn-primary" title="Thêm chi tiết"><i class="fas fa-plus"></i></button>
                     </div>
 
                 </div>
+
             </form>
 
             <!-- List SP da chon-->
@@ -113,7 +114,7 @@
                             </td>
                             <td>@stt</td>
                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenSanPham)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong.ToString("N9"))</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuong)</td>
                             <td class="tdVal" data-id="@item.Id">@Html.Raw(item.DonGia.ToString("N0"))</td>
                             <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
 
