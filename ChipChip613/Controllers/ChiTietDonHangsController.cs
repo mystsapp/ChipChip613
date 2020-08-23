@@ -55,6 +55,8 @@ namespace ChipChip613.Controllers
 
             //NguyenLieuVM.NguyenLieu = new Data.Models.NguyenLieu();
             ChiTietDonHangVM.SPDaChon.DonHangId = donHangId;
+            ChiTietDonHangVM.SPDaChon.NguoiTao = "Admin";
+            ChiTietDonHangVM.SPDaChon.NgayTao = DateTime.Now;
             try
             {
                 _unitOfWork.sPDaChonRepository.Create(ChiTietDonHangVM.SPDaChon);
@@ -70,6 +72,51 @@ namespace ChipChip613.Controllers
             // them moi sp da chon
 
         }
+
+        public async Task<IActionResult> Edit(long donHangId, int id, string strUrl)
+        {
+            ChiTietDonHangVM.StrUrl = strUrl;
+            if (id == 0)
+                return NotFound();
+
+            ChiTietDonHangVM.DonHang = await _unitOfWork.donHangRepository.GetByIdAsync(donHangId);
+            ChiTietDonHangVM.SPDaChon = _unitOfWork.sPDaChonRepository.GetById(id);
+
+            if (ChiTietDonHangVM.DonHang == null || ChiTietDonHangVM.SPDaChon == null)
+                return NotFound();
+
+            return View(ChiTietDonHangVM);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(long donHangId, int id, string strUrl)
+        {
+            if (id != ChiTietDonHangVM.SPDaChon.Id || donHangId != ChiTietDonHangVM.SPDaChon.DonHangId)
+                return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                //DonHangVM.DonHang.NgaySua = DateTime.Now;
+                //DonHangVM.DonHang.NguoiSua = "Admin";
+                try
+                {
+
+                    _unitOfWork.sPDaChonRepository.Update(ChiTietDonHangVM.SPDaChon);
+                    await _unitOfWork.Complete();
+                    SetAlert("Cập nhật thành công", "success");
+                    return RedirectToAction(nameof(Create), new { donHangId = donHangId, strUrl = strUrl });
+                }
+                catch (Exception ex)
+                {
+                    SetAlert(ex.Message, "error");
+                    return View(ChiTietDonHangVM);
+                }
+            }
+
+            return View(ChiTietDonHangVM);
+        }
+
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

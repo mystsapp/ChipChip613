@@ -1,0 +1,147 @@
+﻿@model ChiTietDonHangViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int stt = 1;
+}
+
+<br />
+<br />
+
+<div class="card ">
+    <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-file text-info"></i> Cập nhật chi tiết - @Model.SPDaChon.ThanhTien.ToString("N0") của đơn hàng - mã ĐH: <b>@Model.DonHang.Id</b></h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="p-4 border rounded">
+
+            <form method="post" autocomplete="off">
+
+                <input type="hidden" name="donHangId" value="@Model.DonHang.Id" />
+                <input type="hidden" name="strUrl" value="@Model.StrUrl" />
+
+                <input asp-for="SPDaChon.DonHangId" type="hidden" />
+                <input asp-for="SPDaChon.Id" type="hidden" />
+                <input asp-for="SPDaChon.NguoiTao" type="hidden" />
+                <input asp-for="SPDaChon.NgayTao" type="hidden" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group row">
+
+                    <div class="col-md-3">
+                        <label asp-for="SPDaChon.TenSanPham" class="control-label"></label>
+                        <select asp-for="SPDaChon.TenSanPham" class="form-control" id="ddlSanPham"
+                                asp-items="@(new SelectList(Model.SanPhams, "Name", "Name"))">
+                        </select>
+                        <span asp-validation-for="SPDaChon.TenSanPham" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="SPDaChon.SoLuong" class="control-label"></label>
+                        <input asp-for="SPDaChon.SoLuong" class="form-control " id="txtSoLuong" />
+                        <span asp-validation-for="SPDaChon.SoLuong" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="SPDaChon.DonGia" class="control-label"></label>
+                        <input type="text" asp-for="SPDaChon.DonGia" class="form-control numbers" id="txtDonGia" asp-format="{0:0,0}" readonly />
+                        <span asp-validation-for="SPDaChon.DonGia" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="SPDaChon.ThanhTien" class="control-label"></label>
+                        <input type="text" asp-for="SPDaChon.ThanhTien" class="form-control numbers" asp-format="{0:0,0}" id="txtThanhTien" readonly />
+                        <span asp-validation-for="SPDaChon.ThanhTien" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="col-md-1">
+
+                        <label class="control-label">Theo tác</label>
+                        <div class="btn-group">
+                            <button type="submit" title="Lưu" class="btn btn-primary"><i class="fas fa-save"></i></button>
+                            <a class="btn btn-success " title="Trở về" asp-action="Create" asp-route-donHangId="@Model.DonHang.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-backward"></i></a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+
+        $(function () {
+            //$("#datepicker").datepicker({
+            //    dateFormat: 'dd/mm/yy'
+            //});
+
+            $('#listAll').DataTable({
+                "paging": false,
+                "lengthChange": true,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+    <script src="~/js/ChiTietDonHang/createController.js"></script>
+
+    <script>
+        function confirmDelete(uniqueId, isDeleteClicked) {
+            var deleteSpan = 'deleteSpan_' + uniqueId;
+            var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+            if (isDeleteClicked) {
+                $('#' + deleteSpan).hide();
+                $('#' + confirmDeleteSpan).show();
+            } else {
+                $('#' + deleteSpan).show();
+                $('#' + confirmDeleteSpan).hide();
+            }
+        }
+    </script>
+
+
+    <style>
+        #listAll {
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #search {
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .tblEMD .cursor-pointer:hover {
+            background-color: #3E5C9A;
+            cursor: pointer;
+        }
+
+        .hoverClass {
+            background-color: #3E5C9A;
+        }
+    </style>
+}
+
