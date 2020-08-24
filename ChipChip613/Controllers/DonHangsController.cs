@@ -53,6 +53,8 @@ namespace ChipChip613.Controllers
         {
             DonHangVM.StrUrl = strUrl;
             DonHangVM.DonHang.KhachHang = "Khách lẽ";
+            DonHangVM.DonHang.DiaChi = "";
+            DonHangVM.DonHang.DienThoai = "";
 
             DonHangVM.ChiTietDonHang.SoLuong = 1;
             return View(DonHangVM);

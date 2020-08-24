@@ -9,7 +9,7 @@ namespace Data.Models
     {
         public long Id { get; set; }
 
-        [DisplayName("Hàng nhập")]
+        [DisplayName("Phí xuất")]
         public long NhapHangId { get; set; }
 
         [DisplayName("Chi phí khác")]

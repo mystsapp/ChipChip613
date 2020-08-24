@@ -49,6 +49,7 @@ namespace Data.Repository
                 list = list.Where(x => x.KhachHang.ToLower().Contains(searchString.ToLower()) ||
                                        x.DiaChi.ToLower().Contains(searchString.ToLower())||
                                        x.DienThoai.ToLower().Contains(searchString.ToLower())).ToList();
+                
             }
 
             var count = list.Count();

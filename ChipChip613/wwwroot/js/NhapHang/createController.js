@@ -40,6 +40,7 @@ var createController = {
     blurFunction: function () {
         var donGia = $('.txtDonGia').val();
         var soLuong = $('.txtSoLuong').val();
+        soLuong = soLuong.replace(',', '');
         var chiPhiKhac = $('.txtChiPhiKhac').val();
         $.ajax({
             url: '/NhapHangs/GetThanhTien',
