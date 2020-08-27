@@ -126,9 +126,20 @@
             </table>
             <!-- List SP da chon-->
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Finish</button>
-                <a class="btn btn-success" asp-controller="NhapHangs" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect"><i class="fas fa-backward"></i></a>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <form asp-action="Finish" method="post">
+                        <input type="hidden" name="donHangId" value="@Model.DonHang.Id" />
+                        <input type="hidden" name="strUrl" value="@Model.StrUrl" />
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-save"></i>Finish</button>
+                    </form>
+
+                </div>
+                <div class="col-md-1">
+
+                    <a class="btn btn-success btn-block" asp-controller="NhapHangs" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect"><i class="fas fa-backward"></i></a>
+                </div>
+               
             </div>
         </div>
 

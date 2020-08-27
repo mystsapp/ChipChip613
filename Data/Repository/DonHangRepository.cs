@@ -44,6 +44,7 @@ namespace Data.Repository
                     ThanhTien = chiTietDonHang.Where(x => x.DonHangId == item.Id).Sum(x => x.ThanhTien)
                 });
             }
+            list = list.OrderByDescending(x => x.NgayTao).ToList();
             if (!string.IsNullOrEmpty(searchString))
             {
                 list = list.Where(x => x.KhachHang.ToLower().Contains(searchString.ToLower()) ||

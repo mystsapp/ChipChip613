@@ -165,7 +165,14 @@
                                     <div class="btn-group text-white" role="group">
 
                                         <a class="btn btn-success btn-sm" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
-                                        <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                        @if (item.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString())
+                                        {
+                                            <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-primary btn-sm disabled" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                        }
                                         @*<a class="btn btn-success btn-sm" title="Chi tiết" asp-action="Details" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
                                         <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">
 
@@ -183,7 +190,7 @@
                                 </td>
                                 <td>@stt</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhachHang)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong.ToString("N9"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>

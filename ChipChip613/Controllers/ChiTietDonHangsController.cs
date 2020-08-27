@@ -53,7 +53,25 @@ namespace ChipChip613.Controllers
                 return View(ChiTietDonHangVM);
             }
 
-            //NguyenLieuVM.NguyenLieu = new Data.Models.NguyenLieu();
+            var spDachon = _unitOfWork.sPDaChonRepository.Find(x => x.DonHangId == donHangId)
+                                                         .Where(x => x.TenSanPham == ChiTietDonHangVM.SPDaChon.TenSanPham)
+                                                         .FirstOrDefault();
+            /////////////// update mon if exist ///////////
+            if (spDachon != null)
+            {
+                ChiTietDonHangVM.SPDaChon.SoLuong += spDachon.SoLuong;
+                ChiTietDonHangVM.SPDaChon.ThanhTien += spDachon.ThanhTien;
+            }
+            /////////////// update mon if exist ///////////
+
+            // xoa cai cu
+            if (spDachon != null)
+            {
+                _unitOfWork.sPDaChonRepository.Delete(spDachon);
+                await _unitOfWork.Complete();
+            }
+            // xoa cai cu
+
             ChiTietDonHangVM.SPDaChon.DonHangId = donHangId;
             ChiTietDonHangVM.SPDaChon.NguoiTao = "Admin";
             ChiTietDonHangVM.SPDaChon.NgayTao = DateTime.Now;
@@ -139,6 +157,30 @@ namespace ChipChip613.Controllers
             }
         }
 
+        public IActionResult Finish(long donHangId, string strUrl)
+        {
+            var sPDaChons = _unitOfWork.sPDaChonRepository.Find(x => x.DonHangId == donHangId);
+            var slBanhMi = sPDaChons.Select(x => x.SoLuong).Sum();
+            var slXucXich = sPDaChons.Where(x => x.TenSanPham == "Xúc xích").Select(x => x.SoLuong).Sum() * 0.5;
+
+            // save vao donhang va chitietdonhang
+            List<ChiTietDonHang> chiTietDonHangs = new List<ChiTietDonHang>();
+            foreach(var item in sPDaChons)
+            {
+                chiTietDonHangs.Add(new ChiTietDonHang()
+                {
+                    TenSanPham = item.TenSanPham,
+                    DonGia = item.DonGia,
+                    SoLuong = item.SoLuong,
+                    ThanhTien = item.ThanhTien,
+                    DonHangId = donHangId
+                });
+            }
+            _unitOfWork.chiTietDonHangRepository.CreateRange(chiTietDonHangs);
+            // save vao donhang va chitietdonhang
+
+            return Redirect(strUrl);
+        }
 
         private List<SanPhamViewModel> SanPhams()
         {
@@ -151,7 +193,7 @@ namespace ChipChip613.Controllers
                 },
                 new SanPhamViewModel()
                 {
-                    Id = 1,
+                    Id = 2,
                     Name = "Xúc xích"
                 },
             };
