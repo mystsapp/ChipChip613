@@ -41,6 +41,7 @@ namespace Data.Repository
                     NgayTao = item.NgayTao,
                     NguoiTao = item.NguoiTao,
                     SoLuong = chiTietDonHang.Where(x => x.DonHangId == item.Id).Sum(x => x.SoLuong),
+                    SoLuongXX = chiTietDonHang.Where(x => x.DonHangId == item.Id && x.TenSanPham == "Xúc xích").Sum(x => x.SoLuong),
                     ThanhTien = chiTietDonHang.Where(x => x.DonHangId == item.Id).Sum(x => x.ThanhTien)
                 });
             }

@@ -21,8 +21,11 @@ namespace Data.Dtos
         [DisplayName("Người tạo")]
         public string NguoiTao { get; set; }
 
-        [DisplayName("Số lượng")]
+        [DisplayName("SL Tổng")]
         public decimal SoLuong { get; set; }
+        
+        [DisplayName("SL Xúc xích")]
+        public decimal SoLuongXX { get; set; }
 
         [DisplayName("Thành tiền")]
         public decimal ThanhTien { get; set; }

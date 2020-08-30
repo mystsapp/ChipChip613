@@ -63,7 +63,6 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- them don hàng modal-->
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -147,6 +146,7 @@
                             <th>STT</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().KhachHang)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuong)</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuongXX)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().ThanhTien)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().DiaChi)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().DienThoai)</th>
@@ -164,15 +164,18 @@
                                 <td>
                                     <div class="btn-group text-white" role="group">
 
-                                        <a class="btn btn-success btn-sm" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
+
                                         @if (item.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString())
                                         {
-                                            <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-success btn-sm" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
+
                                         }
                                         else
                                         {
-                                            <a class="btn btn-primary btn-sm disabled" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-success btn-sm disabled" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
+
                                         }
+                                        <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
                                         @*<a class="btn btn-success btn-sm" title="Chi tiết" asp-action="Details" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
                                         <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">
 
@@ -191,6 +194,7 @@
                                 <td>@stt</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhachHang)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuongXX.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
@@ -202,6 +206,10 @@
                     </tbody>
 
                 </table>
+                <span><strong>Hôm nay: - SL tổng: @Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.SoLuong).Sum()</strong></span>
+                <span><strong>- SL Truyền thống: @(Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.SoLuong).Sum() - Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.SoLuongXX).Sum())</strong></span>
+                <span><strong>- SL Xúc xích: @(Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.SoLuongXX).Sum())</strong></span>
+                <span><strong>- Tổng tiền: @(Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.ThanhTien).Sum().ToString("N0"))</strong></span>
             </div>
 
             @if (Model.DonHangDtos != null)
