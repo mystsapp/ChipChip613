@@ -34,6 +34,7 @@ namespace Data.Models
         public decimal DonGia { get; set; }
 
         [DisplayName("Số lượng")]
+        [DisplayFormat(DataFormatString = "{0:n0}")]
         public decimal SoLuong { get; set; }
 
         [DisplayName("Số lượng 2")]

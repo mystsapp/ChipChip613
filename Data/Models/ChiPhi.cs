@@ -36,7 +36,8 @@ namespace Data.Models
         [DisplayName("Thành tiền")]
         public decimal ThanhTien { get; set; }
 
-        public DateTime NgayTao { get; set; }
+        [DisplayName("Ngày nhập")]
+        public DateTime? NgayTao { get; set; }
 
         [DisplayName("Người tạo")]
         [MaxLength(50), Column(TypeName = "varchar(50)")]

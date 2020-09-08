@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Data.Dtos
 {
@@ -35,6 +31,7 @@ namespace Data.Dtos
         [DisplayName("Thành tiền")]
         public decimal ThanhTien { get; set; }
 
+        [DisplayName("Ngày nhập")]
         public DateTime NgayTao { get; set; }
 
         [DisplayName("Người tạo")]

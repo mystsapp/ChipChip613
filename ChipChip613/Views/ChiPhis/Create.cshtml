@@ -150,7 +150,13 @@
 
                 <div class="form-group row">
 
-                    <div class="col-md-12">
+                    <div class="col-md-3">
+                        <label asp-for="ChiPhi.NgayTao" class="control-label "></label>
+                        <input value="" asp-for="ChiPhi.NgayTao" class="form-control" />
+                        <span asp-validation-for="ChiPhi.NgayTao" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-9">
                         <label asp-for="ChiPhi.GhiChu" class="control-label "></label>
                         <input asp-for="ChiPhi.GhiChu" class="form-control" />
                         <span asp-validation-for="ChiPhi.GhiChu" class="text-danger"></span>

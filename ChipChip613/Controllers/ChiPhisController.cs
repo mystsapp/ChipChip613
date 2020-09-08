@@ -64,9 +64,9 @@ namespace ChipChip613.Controllers
             ChiPhiVM.StrUrl = strUrl;
 
             var listNhapHang = new List<NhapHang>();
-            foreach(var item in ChiPhiVM.NhapHangs)
+            foreach(var item in ChiPhiVM.NhapHangs.OrderByDescending(x => x.NgayNhap).Where(x => x.TrangThai))
             {
-                listNhapHang.Add(new NhapHang() { Id = item.Id, TenHang = item.TenHang + " - " + item.NgayNhap.ToShortDateString() });
+                listNhapHang.Add(new NhapHang() { Id = item.Id, TenHang = item.TenHang + " - " + item.NgayNhap.ToString("dd/MM/yyyy") });
             }
             ChiPhiVM.NhapHangs = listNhapHang;
 
@@ -99,7 +99,11 @@ namespace ChipChip613.Controllers
                 return View(ChiPhiVM);
             }
 
-            ChiPhiVM.ChiPhi.NgayTao = DateTime.Now;
+            if(ChiPhiVM.ChiPhi.NgayTao == null)
+            {
+                ChiPhiVM.ChiPhi.NgayTao = DateTime.Now;
+            }
+            
             ChiPhiVM.ChiPhi.NguoiTao = "Admin";
             try
             {

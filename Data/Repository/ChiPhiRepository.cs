@@ -41,7 +41,7 @@ namespace Data.Repository
                 chiPhiDto.DVT = item.DVT;
                 chiPhiDto.DVT2 = item.DVT2;
                 chiPhiDto.GhiChu = item.GhiChu;
-                chiPhiDto.NgayTao = item.NgayTao;
+                chiPhiDto.NgayTao = item.NgayTao.Value;
                 chiPhiDto.NguoiTao = item.NguoiTao;
                 chiPhiDto.SoLuong = item.SoLuong;
                 chiPhiDto.SoLuong2 = item.SoLuong2;
