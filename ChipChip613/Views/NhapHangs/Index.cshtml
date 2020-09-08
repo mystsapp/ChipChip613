@@ -140,7 +140,7 @@
                             <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
                             <td class="tdVal" data-id="@item.Id">
 
-                                @Html.Raw(item.NgayNhap.ToShortDateString())
+                                @Html.Raw(item.NgayNhap.ToString("dd/MM/yyyy"))
                             </td>
                             <td class="tdVal" data-id="@item.Id">
                                 @if (item.TrangThai)
