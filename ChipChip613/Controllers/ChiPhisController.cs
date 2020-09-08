@@ -66,7 +66,7 @@ namespace ChipChip613.Controllers
             var listNhapHang = new List<NhapHang>();
             foreach(var item in ChiPhiVM.NhapHangs)
             {
-                listNhapHang.Add(new NhapHang() { Id = item.Id, TenHang = item.TenHang + " - " + item.NgayTao.ToShortDateString() });
+                listNhapHang.Add(new NhapHang() { Id = item.Id, TenHang = item.TenHang + " - " + item.NgayNhap.ToShortDateString() });
             }
             ChiPhiVM.NhapHangs = listNhapHang;
 
@@ -287,7 +287,7 @@ namespace ChipChip613.Controllers
                 thanhTien = thanhTien
             });
         }
-        public JsonResult KiemTraSL(int soLuong = 1, long hangNhapId = 0)
+        public JsonResult KiemTraSL(decimal soLuong = 1, long hangNhapId = 0)
         {
             var nhapHang = _unitOfWork.nhapHangRepository.GetById(hangNhapId);
             bool status = false;

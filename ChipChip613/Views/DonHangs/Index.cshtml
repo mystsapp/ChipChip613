@@ -53,8 +53,8 @@
 
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal"><i class="fas fa-power-off"></i></button>
+                    <button type="submit" class="btn btn-outline-light"><i class="fas fa-save"></i></button>
                 </div>
             </div>
         </form>
@@ -64,7 +64,7 @@
 </div>
 <!-- them don hàng modal-->
 <!-- Content Header (Page header) -->
-<section class="content-header">
+@*<section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -77,8 +77,8 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
-</section>
+    </div>
+</section>*@
 
 <!-- Main content -->
 <section class="content">
@@ -127,12 +127,16 @@
                             @*<input type="hidden" name="id" id="hidId" />
                                 <input type="hidden" name="page" id="hidPage" />*@
 
-                            <div class="col-md-3 btn-block">
-                                <br />
-                                <button type="submit" class="btn btn-primary form-control" id="btnSubmit">
+                        <div class="col-md-3 ">
+                            <br />
+                            <div class="btn-group btn-block">
+                                <button type="submit" class="btn btn-primary " id="btnSubmit">
                                     <i class="fas fa-search"></i>
                                 </button>
+                                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-donhang">Thêm Mới</button>
                             </div>
+                            
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -144,6 +148,7 @@
                         <tr class="table-info">
                             <th>#</th>
                             <th>STT</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().Id)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().KhachHang)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuong)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuongXX)</th>
@@ -180,7 +185,7 @@
                                         <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">
 
                                             <span id="confirmDeleteSpan_@item.Id" style="display: none">
-                                                <span class="text-light">Xóa?</span>
+                                                <span class="text-dark">Xóa?</span>
                                                 <button type="submit" class="btn btn-danger">Yes</button>
                                                 <a href="#" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</a>
                                             </span>
@@ -192,13 +197,14 @@
                                     </div>
                                 </td>
                                 <td>@stt</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Id)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhachHang)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuongXX.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayTao.ToShortDateString())</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayTao.ToString("dd/MM/yyyy"))</td>
 
                             </tr>
                             stt++;

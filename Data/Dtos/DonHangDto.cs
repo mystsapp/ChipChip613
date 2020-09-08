@@ -5,6 +5,7 @@ namespace Data.Dtos
 {
     public class DonHangDto
     {
+        [DisplayName("ID")]
         public long Id { get; set; }
 
         [DisplayName("Tên KH")]

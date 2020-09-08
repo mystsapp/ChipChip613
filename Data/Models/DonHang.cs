@@ -9,6 +9,7 @@ namespace Data.Models
 {
     public class DonHang
     {
+        [DisplayName("ID")]
         public long Id { get; set; }
 
         [DisplayName("Tên KH")]
