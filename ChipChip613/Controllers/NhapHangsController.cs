@@ -155,11 +155,16 @@ namespace ChipChip613.Controllers
         public async Task<IActionResult> DeleteConfirmed(long id, string strUrl)
         {
             var nhapHang = _unitOfWork.nhapHangRepository.GetById(id);
+            var chiPhis = await _unitOfWork.chiPhiRepository.FindAsync(x => x.NhapHangId == id);
             if (nhapHang == null)
                 return NotFound();
             try
             {
                 _unitOfWork.nhapHangRepository.Delete(nhapHang);
+                foreach(var item in chiPhis)
+                {
+                    _unitOfWork.chiPhiRepository.Delete(item);
+                }
                 await _unitOfWork.Complete();
                 SetAlert("Xóa thành công.", "success");
                 return Redirect(strUrl);
