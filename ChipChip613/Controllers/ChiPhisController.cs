@@ -283,9 +283,9 @@ namespace ChipChip613.Controllers
             }
         }
 
-        public JsonResult GetThanhTien(decimal donGia = 0, int soLuong = 1, decimal chiPhiKhac = 0)
+        public JsonResult GetThanhTien(decimal donGia = 0, decimal soLuong = 0, decimal chiPhiKhac = 0)
         {
-            var thanhTien = donGia * (decimal)soLuong + chiPhiKhac;
+            var thanhTien = donGia * soLuong + chiPhiKhac;
             return Json(new
             {
                 thanhTien = thanhTien

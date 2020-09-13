@@ -1,7 +1,7 @@
 ﻿@model ChiPhiViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 <br />
@@ -53,7 +53,7 @@
                 <div class="form-group row">
                     <div class="col-md-2">
                         <label asp-for="ChiPhi.DVT" class="control-label"></label>
-                        <input asp-for="ChiPhi.DVT" class="form-control" />
+                        <input asp-for="ChiPhi.DVT" class="form-control" readonly/>
                         <span asp-validation-for="ChiPhi.DVT" class="text-danger"></span>
                     </div>
 
@@ -65,7 +65,7 @@
 
                     <div class="col-md-2">
                         <label asp-for="ChiPhi.DVT2" class="control-label"></label>
-                        <input asp-for="ChiPhi.DVT2" class="form-control " />
+                        <input asp-for="ChiPhi.DVT2" class="form-control " readonly/>
                         <span asp-validation-for="ChiPhi.DVT2" class="text-danger"></span>
                     </div>
 
@@ -77,7 +77,7 @@
 
                     <div class="col-md-2">
                         <label asp-for="ChiPhi.DonGia" class="control-label "></label>
-                        <input type="text" asp-for="ChiPhi.DonGia" class="form-control txtDonGia numbers" />
+                        <input type="text" asp-for="ChiPhi.DonGia" class="form-control txtDonGia numbers" asp-format="{0:0,0}" readonly/>
                         <span asp-validation-for="ChiPhi.DonGia" class="text-danger"></span>
                     </div>
 
@@ -135,7 +135,7 @@
             });
         </script>*@
 
-    @*<script src="~/js/ChiPhi/createController.js"></script>*@
+    <script src="~/js/ChiPhi/editController.js"></script>
 
     <script>
         $('.ddlHangNhap').change(function () {

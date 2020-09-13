@@ -42,7 +42,7 @@ var editController = {
         var soLuong = $('.txtSoLuong').val();
         var chiPhiKhac = $('.txtChiPhiKhac').val();
         $.ajax({
-            url: '/NhapHangs/GetThanhTien',
+            url: '/ChiPhis/GetThanhTien',
             type: 'GET',
             data: {
                 donGia: donGia,

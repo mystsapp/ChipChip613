@@ -36,7 +36,7 @@ namespace Data.Models
         [DisplayName("Thành tiền")]
         public decimal ThanhTien { get; set; }
 
-        [DisplayName("Ngày nhập")]
+        [DisplayName("Ngày xuất")]
         public DateTime? NgayTao { get; set; }
 
         [DisplayName("Người tạo")]
