@@ -31,7 +31,7 @@
 
                      <div class="col-md-3">
                          <label asp-for="DonHang.KhachHang" class="control-label"></label>
-                         <input asp-for="DonHang.KhachHang" class="form-control" value="Khách lẽ" />
+                         <input asp-for="DonHang.KhachHang" class="form-control" />
                          <span asp-validation-for="DonHang.KhachHang" class="text-danger"></span>
                      </div>
 
@@ -43,7 +43,7 @@
 
                      <div class="col-md-3">
                          <label asp-for="DonHang.NgayTao" class="control-label"></label>
-                         <input type="text" asp-for="DonHang.NgayTao" class="form-control maskInput" />
+                         <input type="text" asp-for="DonHang.NgayTao" class="form-control maskInput" asp-format="{0:dd/MM/yyyy}"/>
                          <span asp-validation-for="DonHang.NgayTao" class="text-danger"></span>
                      </div>
 

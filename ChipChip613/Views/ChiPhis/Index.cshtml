@@ -149,7 +149,9 @@
                     </tbody>
 
                 </table>
-                <span><strong>Tổng tiền: @Html.Raw(Model.ChiPhiDtos.Sum(x => x.ThanhTien).ToString("N0")) VND</strong></span>
+                <span><strong>Tổng trang: @Html.Raw(Model.ChiPhiDtos.Sum(x => x.ThanhTien).ToString("N0")) VND</strong></span>
+                <br />
+                <span><strong>Tổng tiền: @Html.Raw(Model.ChiPhiDtos.FirstOrDefault().TongTien.ToString("N0")) VND</strong></span>
             </div>
 
             @if (Model.ChiPhiDtos != null)

@@ -31,7 +31,9 @@ namespace Data.Repository
 
             //var list = GetAll().AsQueryable();
             var list = new List<ChiPhiDto>();
-            foreach (var item in _context.ChiPhis)
+            var chiPhis = _context.ChiPhis;
+            
+            foreach (var item in chiPhis)
             {
                 var chiPhiDto = new ChiPhiDto();
 
@@ -48,7 +50,6 @@ namespace Data.Repository
                 var nhapHangs1 = nhapHangs.Where(x => x.Id == item.NhapHangId);
                 chiPhiDto.TenHangNhap = (item.NhapHangId == 0) ? "" : nhapHangs1.FirstOrDefault().TenHang;
                 chiPhiDto.ThanhTien = item.ThanhTien;
-
                 list.Add(chiPhiDto);
 
             }
@@ -61,7 +62,7 @@ namespace Data.Repository
                                        x.SoLuong.ToString().ToLower().Contains(searchString.ToLower()) ||
                                        x.ThanhTien.ToString().ToLower().Contains(searchString.ToLower())).ToList();
             }
-
+            
             var count = list.Count();
             DateTime fromDate, toDate;
             if (!string.IsNullOrEmpty(searchFromDate) && !string.IsNullOrEmpty(searchToDate))
@@ -120,6 +121,12 @@ namespace Data.Repository
                     }
 
                 }
+            }
+            // tong tien
+            var tongTien = list.Sum(x => x.ThanhTien);
+            foreach(var item in list)
+            {
+                item.TongTien = tongTien;
             }
             // page the list
             const int pageSize = 10;

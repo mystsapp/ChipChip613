@@ -28,8 +28,15 @@ namespace Data.Dtos
         
         [DisplayName("SL Xúc xích")]
         public decimal SoLuongXX { get; set; }
+        
+        [DisplayName("SL truyền thống")]
+        public decimal SoLuongTT { get; set; }
 
         [DisplayName("Thành tiền")]
         public decimal ThanhTien { get; set; }
+        public decimal TongSL { get; set; }
+        public decimal TongSLTT { get; set; }
+        public decimal TongSLXX { get; set; }
+        public decimal TongTien { get; set; }
     }
 }

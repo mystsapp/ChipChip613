@@ -32,6 +32,8 @@ namespace Data.Repository
             var chiTietDonHang = _context.ChiTietDonHangs;
             foreach(var item in donHangs)
             {
+                var soLuong = chiTietDonHang.Where(x => x.DonHangId == item.Id).Sum(x => x.SoLuong);
+                var soLuongXX = chiTietDonHang.Where(x => x.DonHangId == item.Id && x.TenSanPham == "Xúc xích").Sum(x => x.SoLuong);
                 list.Add(new DonHangDto()
                 {
                     Id = item.Id,
@@ -40,8 +42,9 @@ namespace Data.Repository
                     KhachHang = item.KhachHang,
                     NgayTao = item.NgayTao,
                     NguoiTao = item.NguoiTao,
-                    SoLuong = chiTietDonHang.Where(x => x.DonHangId == item.Id).Sum(x => x.SoLuong),
-                    SoLuongXX = chiTietDonHang.Where(x => x.DonHangId == item.Id && x.TenSanPham == "Xúc xích").Sum(x => x.SoLuong),
+                    SoLuong = soLuong,
+                    SoLuongXX = soLuongXX,
+                    SoLuongTT = soLuong - soLuongXX,
                     ThanhTien = chiTietDonHang.Where(x => x.DonHangId == item.Id).Sum(x => x.ThanhTien)
                 });
             }
@@ -113,6 +116,20 @@ namespace Data.Repository
 
                 }
             }
+            // tinh tong
+            var tongSL = list.Sum(x => x.SoLuong);
+            var tongSLXX = list.Sum(x => x.SoLuongXX);
+            var tongSLTT = list.Sum(x => x.SoLuongTT);
+            var tongTien = list.Sum(x => x.ThanhTien);
+            foreach(var item in list)
+            {
+                item.TongSL = tongSL;
+                item.TongSLXX = tongSLXX;
+                item.TongSLTT = tongSLTT;
+                item.TongTien = tongTien;
+            }
+            // tinh tong
+
             // page the list
             const int pageSize = 10;
             decimal aa = (decimal)list.Count() / (decimal)pageSize;

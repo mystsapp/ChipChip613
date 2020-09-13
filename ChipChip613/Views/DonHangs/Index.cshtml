@@ -37,15 +37,15 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label asp-for="DonHang.DienThoai" class="control-label"></label>
-                            <input asp-for="DonHang.DienThoai" class="form-control" />
-                            <span asp-validation-for="DonHang.DienThoai" class="text-danger"></span>
-                        </div>
-                        
-                        <div class="col-md-3">
                             <label asp-for="DonHang.NgayTao" class="control-label"></label>
                             <input type="text" value="" asp-for="DonHang.NgayTao" class="form-control maskInput" />
                             <span asp-validation-for="DonHang.NgayTao" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label asp-for="DonHang.DienThoai" class="control-label"></label>
+                            <input asp-for="DonHang.DienThoai" class="form-control" />
+                            <span asp-validation-for="DonHang.DienThoai" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-3">
@@ -157,11 +157,12 @@
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().Id)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().KhachHang)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuong)</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuongTT)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuongXX)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().ThanhTien)</th>
+                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().NgayTao)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().DiaChi)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().DienThoai)</th>
-                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().NgayTao)</th>
 
                         </tr>
                     </thead>
@@ -206,11 +207,12 @@
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Id)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhachHang)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuongTT.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuongXX.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayTao.ToString("dd/MM/yyyy"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayTao.ToString("dd/MM/yyyy"))</td>
 
                             </tr>
                             stt++;
@@ -218,10 +220,15 @@
                     </tbody>
 
                 </table>
-                <span><strong>Hôm nay: - SL tổng: @Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.SoLuong).Sum()</strong></span>
+                <span><strong>- Hôm nay: - SL tổng: @Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.SoLuong).Sum()</strong></span>
                 <span><strong>- SL Truyền thống: @(Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.SoLuong).Sum() - Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.SoLuongXX).Sum())</strong></span>
                 <span><strong>- SL Xúc xích: @(Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.SoLuongXX).Sum())</strong></span>
                 <span><strong>- Tổng tiền: @(Model.DonHangDtos.Where(x => x.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString()).Select(x => x.ThanhTien).Sum().ToString("N0"))</strong></span>
+                <br />
+                <span><strong>- Tổng SL: @Model.DonHangDtos.FirstOrDefault().TongSL</strong></span>
+                <span><strong>- Tổng SLTT: @Model.DonHangDtos.FirstOrDefault().TongSLTT</strong></span>
+                <span><strong>- Tổng SLXX: @Model.DonHangDtos.FirstOrDefault().TongSLXX</strong></span>
+                <span><strong>- Tổng tiền: @Model.DonHangDtos.FirstOrDefault().TongTien.ToString("N0")</strong></span>
             </div>
 
             @if (Model.DonHangDtos != null)

@@ -7,7 +7,7 @@ namespace Data.Dtos
     {
         public long Id { get; set; }
 
-        [DisplayName("Hàng nhập")]
+        [DisplayName("Hàng xuất")]
         public string TenHangNhap { get; set; }
 
         [DisplayName("Chi phí khác")]
@@ -31,7 +31,7 @@ namespace Data.Dtos
         [DisplayName("Thành tiền")]
         public decimal ThanhTien { get; set; }
 
-        [DisplayName("Ngày nhập")]
+        [DisplayName("Ngày xuất")]
         public DateTime NgayTao { get; set; }
 
         [DisplayName("Người tạo")]
@@ -39,5 +39,7 @@ namespace Data.Dtos
 
         [DisplayName("Ghi chú")]
         public string GhiChu { get; set; }
+
+        public decimal TongTien { get; set; }
     }
 }

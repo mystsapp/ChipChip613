@@ -75,7 +75,7 @@
 
                     <div class="col-md-3">
                         <label asp-for="NhapHang.NgayNhap" class="control-label"></label>
-                        <input asp-for="NhapHang.NgayNhap" class="form-control" />
+                        <input type="text" value="" asp-for="NhapHang.NgayNhap " class="form-control maskInput" />
                         <span asp-validation-for="NhapHang.NgayNhap" class="text-danger"></span>
                     </div>
 
@@ -98,7 +98,7 @@
                     <div class="col-md-1">
                         <label asp-for="NhapHang.TrangThai" class="control-label"></label>
                         <br />
-                        <input asp-for="NhapHang.TrangThai" type="checkbox" />
+                        <input asp-for="NhapHang.TrangThai" type="checkbox" checked/>
                     </div>
 
                     <div class="col-md-8">
