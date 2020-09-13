@@ -157,27 +157,38 @@ namespace ChipChip613.Controllers
             }
         }
 
-        public IActionResult Finish(long donHangId, string strUrl)
+        public async Task<IActionResult> Finish(long donHangId, string strUrl)
         {
             var sPDaChons = _unitOfWork.sPDaChonRepository.Find(x => x.DonHangId == donHangId);
             var slBanhMi = sPDaChons.Select(x => x.SoLuong).Sum();
             var slXucXich = sPDaChons.Where(x => x.TenSanPham == "Xúc xích").Select(x => x.SoLuong).Sum() * 0.5;
 
-            // save vao donhang va chitietdonhang
-            List<ChiTietDonHang> chiTietDonHangs = new List<ChiTietDonHang>();
-            foreach(var item in sPDaChons)
+            if(sPDaChons.Count() != 0)
             {
-                chiTietDonHangs.Add(new ChiTietDonHang()
+                // save vao donhang va chitietdonhang
+                List<ChiTietDonHang> chiTietDonHangs = new List<ChiTietDonHang>();
+                foreach (var item in sPDaChons)
                 {
-                    TenSanPham = item.TenSanPham,
-                    DonGia = item.DonGia,
-                    SoLuong = item.SoLuong,
-                    ThanhTien = item.ThanhTien,
-                    DonHangId = donHangId
-                });
+                    chiTietDonHangs.Add(new ChiTietDonHang()
+                    {
+                        TenSanPham = item.TenSanPham,
+                        DonGia = item.DonGia,
+                        SoLuong = item.SoLuong,
+                        ThanhTien = item.ThanhTien,
+                        DonHangId = donHangId
+                    });
+                }
+                _unitOfWork.chiTietDonHangRepository.CreateRange(chiTietDonHangs);
+
+                // xoa di bang tam spdachon
+                foreach (var item in sPDaChons)
+                {
+                    _unitOfWork.sPDaChonRepository.Delete(item);
+                }
+                await _unitOfWork.Complete();
+                // save vao donhang va chitietdonhang
+
             }
-            _unitOfWork.chiTietDonHangRepository.CreateRange(chiTietDonHangs);
-            // save vao donhang va chitietdonhang
 
             return Redirect(strUrl);
         }

@@ -51,13 +51,13 @@
 
                     <div class="col-md-3">
                         <label asp-for="SPDaChon.DonGia" class="control-label"></label>
-                        <input type="text" asp-for="SPDaChon.DonGia" class="form-control numbers" id="txtDonGia" asp-format="{0:0,0}" readonly/>
+                        <input type="text" asp-for="SPDaChon.DonGia" class="form-control numbers" id="txtDonGia" asp-format="{0:0,0}" readonly />
                         <span asp-validation-for="SPDaChon.DonGia" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-3">
                         <label asp-for="SPDaChon.ThanhTien" class="control-label"></label>
-                        <input type="text" asp-for="SPDaChon.ThanhTien" class="form-control numbers" asp-format="{0:0,0}" id="txtThanhTien" readonly/>
+                        <input type="text" asp-for="SPDaChon.ThanhTien" class="form-control numbers" asp-format="{0:0,0}" id="txtThanhTien" readonly />
                         <span asp-validation-for="SPDaChon.ThanhTien" class="text-danger"></span>
 
                     </div>
@@ -131,7 +131,15 @@
                     <form asp-action="Finish" method="post">
                         <input type="hidden" name="donHangId" value="@Model.DonHang.Id" />
                         <input type="hidden" name="strUrl" value="@Model.StrUrl" />
-                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-save"></i>Finish</button>
+                        @if (Model.SPDaChons.Count() != 0)
+                        {
+                            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-save"></i>Finish</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary btn-block" disabled><i class="fas fa-save"></i>Finish</button>
+                        }
+
                     </form>
 
                 </div>
@@ -139,7 +147,7 @@
 
                     <a class="btn btn-success btn-block" asp-controller="NhapHangs" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect"><i class="fas fa-backward"></i></a>
                 </div>
-               
+
             </div>
         </div>
 
