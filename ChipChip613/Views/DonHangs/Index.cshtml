@@ -41,8 +41,14 @@
                             <input asp-for="DonHang.DienThoai" class="form-control" />
                             <span asp-validation-for="DonHang.DienThoai" class="text-danger"></span>
                         </div>
+                        
+                        <div class="col-md-3">
+                            <label asp-for="DonHang.NgayTao" class="control-label"></label>
+                            <input type="text" value="" asp-for="DonHang.NgayTao" class="form-control maskInput" />
+                            <span asp-validation-for="DonHang.NgayTao" class="text-danger"></span>
+                        </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <label asp-for="DonHang.DiaChi" class="control-label"></label>
                             <input asp-for="DonHang.DiaChi" class="form-control" />
                             <span asp-validation-for="DonHang.DiaChi" class="text-danger"></span>

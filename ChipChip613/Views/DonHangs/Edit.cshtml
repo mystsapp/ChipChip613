@@ -25,29 +25,35 @@
             <div class="p-4 border rounded bg-secondary">
 
                 <input asp-for="DonHang.Id" type="hidden" />
-                <input asp-for="DonHang.NgayTao" type="hidden" />
+                @*<input asp-for="DonHang.NgayTao" type="hidden" />*@
                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group row">
+                 <div class="form-group row">
 
-                    <div class="col-md-3">
-                        <label asp-for="DonHang.KhachHang" class="control-label"></label>
-                        <input asp-for="DonHang.KhachHang" class="form-control" value="Khách lẽ" />
-                        <span asp-validation-for="DonHang.KhachHang" class="text-danger"></span>
-                    </div>
+                     <div class="col-md-3">
+                         <label asp-for="DonHang.KhachHang" class="control-label"></label>
+                         <input asp-for="DonHang.KhachHang" class="form-control" value="Khách lẽ" />
+                         <span asp-validation-for="DonHang.KhachHang" class="text-danger"></span>
+                     </div>
 
-                    <div class="col-md-3">
-                        <label asp-for="DonHang.DienThoai" class="control-label"></label>
-                        <input asp-for="DonHang.DienThoai" class="form-control" />
-                        <span asp-validation-for="DonHang.DienThoai" class="text-danger"></span>
-                    </div>
+                     <div class="col-md-3">
+                         <label asp-for="DonHang.DienThoai" class="control-label"></label>
+                         <input asp-for="DonHang.DienThoai" class="form-control" />
+                         <span asp-validation-for="DonHang.DienThoai" class="text-danger"></span>
+                     </div>
 
-                    <div class="col-md-6">
-                        <label asp-for="DonHang.DiaChi" class="control-label"></label>
-                        <input asp-for="DonHang.DiaChi" class="form-control" />
-                        <span asp-validation-for="DonHang.DiaChi" class="text-danger"></span>
-                    </div>
+                     <div class="col-md-3">
+                         <label asp-for="DonHang.NgayTao" class="control-label"></label>
+                         <input type="text" asp-for="DonHang.NgayTao" class="form-control maskInput" />
+                         <span asp-validation-for="DonHang.NgayTao" class="text-danger"></span>
+                     </div>
 
-                </div>
+                     <div class="col-md-3">
+                         <label asp-for="DonHang.DiaChi" class="control-label"></label>
+                         <input asp-for="DonHang.DiaChi" class="form-control" />
+                         <span asp-validation-for="DonHang.DiaChi" class="text-danger"></span>
+                     </div>
+
+                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
                     <a class="btn btn-success" asp-controller="NhapHangs" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect"><i class="fas fa-backward"></i></a>

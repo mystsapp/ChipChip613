@@ -69,9 +69,13 @@ namespace ChipChip613.Controllers
                 return View(DonHangVM);
             }
 
-            //NganhNgheVM.DMNganhNghe = new Data.Models_IB.DMNganhNghe();
-            DonHangVM.DonHang.NgayTao = DateTime.Now;
+            if (DonHangVM.DonHang.NgayTao == null)
+            {
+                DonHangVM.DonHang.NgayTao = DateTime.Now;
+            }
+
             DonHangVM.DonHang.NguoiTao = "Admin";
+
             try
             {
                 _unitOfWork.donHangRepository.Create(DonHangVM.DonHang);
@@ -152,6 +156,7 @@ namespace ChipChip613.Controllers
             var donHang = await _unitOfWork.donHangRepository.GetByIdAsync(id);
             if (donHang == null)
                 return NotFound();
+
             try
             {
                 _unitOfWork.donHangRepository.Delete(donHang);

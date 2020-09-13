@@ -17,6 +17,7 @@ namespace Data.Dtos
         [DisplayName("Điện thoại")]
         public string DienThoai { get; set; }
 
+        [DisplayName("Ngày tạo")]
         public DateTime NgayTao { get; set; }
 
         [DisplayName("Người tạo")]

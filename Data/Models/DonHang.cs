@@ -24,6 +24,7 @@ namespace Data.Models
         [MaxLength(15), Column(TypeName = "varchar(15)")]
         public string DienThoai { get; set; }
 
+        [DisplayName("Ngày tạo")]
         public DateTime NgayTao { get; set; }
 
         [DisplayName("Người tạo")]
