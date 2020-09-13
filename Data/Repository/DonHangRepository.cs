@@ -114,7 +114,7 @@ namespace Data.Repository
                 }
             }
             // page the list
-            const int pageSize = 15;
+            const int pageSize = 10;
             decimal aa = (decimal)list.Count() / (decimal)pageSize;
             var bb = Math.Ceiling(aa);
             if (page > bb)

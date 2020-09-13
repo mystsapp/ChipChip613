@@ -21,44 +21,84 @@ var editController = {
             });
         });
 
-        //$('input.numbers').val(function (index, value) {
-        //    return addCommas(value);
-        //});
-        $('.txtDonGia').off('blur').on('blur', function () {
-            editController.blurFunction();
-        });
-        
         $('.txtSoLuong').off('blur').on('blur', function () {
-            editController.blurFunction();
+            $('#btnSubmit').prop('disabled', false);
+            editController.txtSoLuongBlurFunction();
         });
-        
-        $('.txtChiPhiKhac').off('blur').on('blur', function () {
-            editController.blurFunction();
+
+        $('.txtSoLuong2').off('blur').on('blur', function () {
+            $('#btnSubmit').prop('disabled', false);
+            editController.txtSoLuong2BlurFunction();
+        });
+
+        $('.txtThanhTien').off('blur').on('blur', function () {
+            $('#btnSubmit').prop('disabled', false);
         });
 
     },
-    blurFunction: function () {
-        var donGia = $('.txtDonGia').val();
-        var soLuong = $('.txtSoLuong').val();
-        var chiPhiKhac = $('.txtChiPhiKhac').val();
+    txtSoLuong2BlurFunction: function () { // kt so luong hang va sl2 neu co
+        var soLuong2 = $('.txtSoLuong2').val();
+        hangNhapId = $('.ddlHangNhap').val();
+
         $.ajax({
-            url: '/ChiPhis/GetThanhTien',
+            url: '/ChiPhis/KiemTraSL2',
             type: 'GET',
             data: {
-                donGia: donGia,
-                soLuong: soLuong,
-                chiPhiKhac: chiPhiKhac,
+                soLuong2: soLuong2,
+                hangNhapId: hangNhapId
             },
             dataType: 'json',
             success: function (response) {
-                //var data = JSON.parse(response.data);
-                //console.log(data);
-                console.log(response.thanhTien);
-                var thanhTien = numeral(response.thanhTien).format('0,0');
-                $('.txtThanhTien').val(thanhTien);
+                if (!response.status) {
+                    bootbox.alert("Số lượng không đủ!");
+                    return;
+                }
+                else {
+                    if (response.sLuong !== 0) {
+                        $('.txtSoLuong').val(response.sLuong);
+                        var thanhTien = numeral(response.thanhTien).format('0,0');
+                        $('.txtThanhTien').val(thanhTien);
+                    }
+                }
+                //console.log(response.thanhTien);
+                //var thanhTien = numeral(response.thanhTien).format('0,0');
+                //$('.txtThanhTien').val(thanhTien);
             }
         });
-        
+
+    },
+    txtSoLuongBlurFunction: function () { // kt so luong hang va sl2 neu co
+        var soLuong = $('.txtSoLuong').val();
+        hangNhapId = $('.ddlHangNhap').val();
+
+        $.ajax({
+            url: '/ChiPhis/KiemTraSL',
+            type: 'GET',
+            data: {
+                soLuong: soLuong,
+                hangNhapId: hangNhapId
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (!response.status) {
+                    bootbox.alert("Số lượng không đủ!");
+                    return;
+                }
+                else {
+                    var thanhTien = numeral(response.thanhTien).format('0,0');
+                    $('.txtThanhTien').val(thanhTien);
+                    if (response.sLuong2 !== 0) {
+                        $('.txtSoLuong2').val(response.sLuong2);
+
+                    }
+                }
+                //console.log(response.thanhTien);
+                //var thanhTien = numeral(response.thanhTien).format('0,0');
+                //$('.txtThanhTien').val(thanhTien);
+            }
+        });
+
     }
+
 };
 editController.init();
