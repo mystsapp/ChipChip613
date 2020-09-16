@@ -71,12 +71,22 @@
                                 Đến ngày
                                 <input class="form-control maskInput" name="searchToDate" value="@ViewBag.searchToDate" />
                             </div>
+                            
+                            <div class="col-md-2">
+                                Tình trạng
+                                <select class="form-control" name="trangThai">
+                                    <option value="">-- Select --</option>
+                                    <option value="true">Còn hàng</option>
+                                    <option value="false">Hết hàng</option>
+                                    @*<option value="@ViewBag.trangThai" selected>@ViewBag.trangThai</option>*@
+                                </select>
+                            </div>
 
                             <!-- click row and submit to index -->
                             @*<input type="hidden" name="id" id="hidId" />
         <input type="hidden" name="page" id="hidPage" />*@
 
-                            <div class="col-md-3 btn-block">
+                            <div class="col-md-1 btn-block">
                                 <br />
                                 <button type="submit" class="btn btn-primary form-control" id="btnSubmit">
                                     <i class="fas fa-search"></i>
@@ -96,12 +106,14 @@
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().DonGia)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().DVT)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().SoLuong)</th>
-
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().DVT2)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().SoLuong2)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().ThanhTien)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().NgayNhap)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().TrangThai)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().SoLuongLuu)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().SoLuong2Luu)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().ThanhTienLuu)</th>
 
                         </tr>
                     </thead>
@@ -109,55 +121,61 @@
                         @foreach (var item in Model.NhapHangs)
                         {
 
-                        <tr class="cursor-pointer ">
+                            <tr class="cursor-pointer ">
 
-                            <td>
-                                <div class="btn-group text-white" role="group">
-                                    <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
-                                    <a class="btn btn-success btn-sm" title="Chi tiết" asp-action="Details" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
-                                    <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">
+                                <td>
+                                    <div class="btn-group text-white" role="group">
+                                        <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-success btn-sm" title="Chi tiết" asp-action="Details" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
+                                        <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">
 
-                                        <span id="confirmDeleteSpan_@item.Id" style="display: none">
-                                            <span class="text-light">Xóa?</span>
-                                            <button type="submit" class="btn btn-danger">Yes</button>
-                                            <a href="#" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</a>
-                                        </span>
+                                            <span id="confirmDeleteSpan_@item.Id" style="display: none">
+                                                <span class="text-light">Xóa?</span>
+                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                                <a href="#" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</a>
+                                            </span>
 
-                                        <span id="deleteSpan_@item.Id">
-                                            <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></a>
-                                        </span>
-                                    </form>
-                                </div>
-                            </td>
+                                            <span id="deleteSpan_@item.Id">
+                                                <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></a>
+                                            </span>
+                                        </form>
+                                    </div>
+                                </td>
 
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenHang)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.Raw(item.DonGia.ToString("N0"))</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenHang)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.DonGia.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong)</td>
 
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT2)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuong2)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
-                            <td class="tdVal" data-id="@item.Id">
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT2)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuong2)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">
 
-                                @Html.Raw(item.NgayNhap.ToString("dd/MM/yyyy"))
-                            </td>
-                            <td class="tdVal" data-id="@item.Id">
-                                @if (item.TrangThai)
-                                {
-                                    <span class="badge badge-success">Còn hàng</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-warning">Hết hàng</span>
-                                }
-                            </td>
-                        </tr>
+                                    @Html.Raw(item.NgayNhap.ToString("dd/MM/yyyy"))
+                                </td>
+                                <td class="tdVal" data-id="@item.Id">
+                                    @if (item.TrangThai)
+                                    {
+                                        <span class="badge badge-success">Còn hàng</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-warning">Hết hàng</span>
+                                    }
+                                </td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuongLuu.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong2Luu.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTienLuu.ToString("N0"))</td>
+                            </tr>
 
                         }
                     </tbody>
 
                 </table>
+                <span><strong>Tổng tiền: @Model.NhapHangs.Sum(x => x.ThanhTienLuu).ToString("N0")</strong></span>
+                <br />
+                <span><strong>Tổng tiền theo KQ tìm kiếm : @Model.NhapHangs.FirstOrDefault().TongTienTheoNgay.ToString("N0")</strong></span>
             </div>
 
             @if (Model.NhapHangs != null)

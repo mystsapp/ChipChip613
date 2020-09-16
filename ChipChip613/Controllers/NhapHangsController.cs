@@ -24,12 +24,13 @@ namespace ChipChip613.Controllers
             };
         }
 
-        public IActionResult Index(string searchString = null, string searchFromDate = null, string searchToDate = null, int page = 1)
+        public IActionResult Index(string searchString = null, string searchFromDate = null, string searchToDate = null, string trangThai = null, int page = 1)
         {
             NhapHangVM.StrUrl = UriHelper.GetDisplayUrl(Request);
             ViewBag.searchString = searchString;
             ViewBag.searchFromDate = searchFromDate;
             ViewBag.searchToDate = searchToDate;
+            ViewBag.trangThai = trangThai;
 
             // for delete
             //if (id != 0)
@@ -44,10 +45,10 @@ namespace ChipChip613.Controllers
             //    }
             //}
 
-            NhapHangVM.NhapHangs = _unitOfWork.nhapHangRepository.ListNhapHang(searchString, searchFromDate, searchToDate, page);
+            NhapHangVM.NhapHangs = _unitOfWork.nhapHangRepository.ListNhapHang(searchString, searchFromDate, searchToDate, trangThai, page);
             if (NhapHangVM.NhapHangs == null)
             {
-                NhapHangVM.NhapHangs = _unitOfWork.nhapHangRepository.ListNhapHang("", "", "", 1);
+                NhapHangVM.NhapHangs = _unitOfWork.nhapHangRepository.ListNhapHang("", "", "","", 1);
                 SetAlert("Lỗi định dạng ngày tháng.", "error");
             }
             return View(NhapHangVM);

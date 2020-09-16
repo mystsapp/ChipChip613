@@ -1,4 +1,5 @@
-﻿using Data.Interfaces;
+﻿using Data.Dtos;
+using Data.Interfaces;
 using Data.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Data.Repository
 {
     public interface INhapHangRepository : IRepository<NhapHang>
     {
-        IPagedList<NhapHang> ListNhapHang(string searchString, string searchFromDate, string searchToDate, int? page);
+        IPagedList<NhapHangDto> ListNhapHang(string searchString, string searchFromDate, string searchToDate, string trangThai, int? page);
     }
     public class NhapHangRepository : Repository<NhapHang>, INhapHangRepository
     {
@@ -18,7 +19,7 @@ namespace Data.Repository
         {
         }
 
-        public IPagedList<NhapHang> ListNhapHang(string searchString, string searchFromDate, string searchToDate, int? page)
+        public IPagedList<NhapHangDto> ListNhapHang(string searchString, string searchFromDate, string searchToDate, string trangThai, int? page)
         {
             
             // return a 404 if user browses to before the first page
@@ -27,10 +28,41 @@ namespace Data.Repository
 
             // retrieve list from database/whereverand
 
-            var list = GetAll().AsQueryable();
+            var nhapHangs = GetAll().AsQueryable();
+            List<NhapHangDto> list = new List<NhapHangDto>();
+            var tongTien = nhapHangs.Sum(x => x.ThanhTien);
+
+            foreach(var item in nhapHangs)
+            {
+                list.Add(new NhapHangDto()
+                {
+                    DonGia = item.DonGia,
+                    DTNoiNhap = item.DTNoiNhap,
+                    DVT = item.DVT,
+                    DVT2 = item.DVT2,
+                    DVT2Luu = item.DVT2Luu,
+                    DVTLuu = item.DVTLuu,
+                    GhiChu = item.GhiChu,
+                    Id = item.Id,
+                    LogFile = item.LogFile,
+                    NgayNhap = item.NgayNhap,
+                    NgayTao = item.NgayTao,
+                    NguoiTao = item.NguoiTao,
+                    NoiNhap = item.NoiNhap,
+                    SoLuong = item.SoLuong,
+                    SoLuong2 = item.SoLuong2,
+                    SoLuong2Luu = item.SoLuong2Luu,
+                    SoLuongLuu = item.SoLuongLuu,
+                    TenHang = item.TenHang,
+                    ThanhTien = item.ThanhTien,
+                    ThanhTienLuu = item.ThanhTienLuu,
+                    TongTien = tongTien,
+                    TrangThai = item.TrangThai
+                });
+            }
             if (!string.IsNullOrEmpty(searchString))
             {
-                list = list.Where(x => x.TenHang.ToLower().Contains(searchString.ToLower()));
+                list = list.Where(x => x.TenHang.ToLower().Contains(searchString.ToLower())).ToList();
             }
 
             var count = list.Count();
@@ -48,7 +80,7 @@ namespace Data.Repository
                         return null;
                     }
                     list = list.Where(x => x.NgayNhap >= fromDate &&
-                                       x.NgayNhap < toDate.AddDays(1));
+                                       x.NgayNhap < toDate.AddDays(1)).ToList();
                 }
                 catch (Exception)
                 {
@@ -69,7 +101,7 @@ namespace Data.Repository
                     try
                     {
                         fromDate = DateTime.Parse(searchFromDate);
-                        list = list.Where(x => x.NgayNhap >= fromDate);
+                        list = list.Where(x => x.NgayNhap >= fromDate).ToList();
                     }
                     catch (Exception)
                     {
@@ -82,7 +114,7 @@ namespace Data.Repository
                     try
                     {
                         toDate = DateTime.Parse(searchToDate);
-                        list = list.Where(x => x.NgayNhap < toDate.AddDays(1));
+                        list = list.Where(x => x.NgayNhap < toDate.AddDays(1)).ToList();
 
                     }
                     catch (Exception)
@@ -92,6 +124,20 @@ namespace Data.Repository
 
                 }
             }
+            // search trang thai
+            if (!string.IsNullOrEmpty(trangThai))
+            {
+                list = list.Where(x => x.TrangThai == bool.Parse(trangThai)).ToList();
+            }
+            // search trang thai
+
+            // tinh tong tien
+            foreach(var item in list)
+            {
+                item.TongTienTheoNgay = list.Sum(x => x.ThanhTienLuu);
+            }
+            // tinh tong tien
+
             // page the list
             const int pageSize = 10;
             decimal aa = (decimal)list.Count() / (decimal)pageSize;
