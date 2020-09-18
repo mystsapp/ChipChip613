@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Schema;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChipChip613.Controllers
@@ -30,7 +31,7 @@ namespace ChipChip613.Controllers
             ViewBag.searchString = searchString;
             ViewBag.searchFromDate = searchFromDate;
             ViewBag.searchToDate = searchToDate;
-            ViewBag.trangThai = trangThai;
+            ViewBag.tinhTrang = trangThai;
 
             // for delete
             //if (id != 0)
@@ -51,6 +52,7 @@ namespace ChipChip613.Controllers
                 NhapHangVM.NhapHangs = _unitOfWork.nhapHangRepository.ListNhapHang("", "", "","", 1);
                 SetAlert("Lỗi định dạng ngày tháng.", "error");
             }
+            NhapHangVM.TinhTrangs = ListTinhTrang();
             return View(NhapHangVM);
         }
 
@@ -185,6 +187,17 @@ namespace ChipChip613.Controllers
             {
                 thanhTien = thanhTien
             });
+        }
+
+        private List<ListViewModel> ListTinhTrang()
+        {
+            return new List<ListViewModel>()
+            {
+                new ListViewModel() { Id = 0, Name = "-- select --" },
+                new ListViewModel() { Id = 1, Name = "true" },
+                new ListViewModel() { Id = 2, Name = "false" }
+            };
+
         }
 
         public IActionResult DetailsRedirect(string strUrl)

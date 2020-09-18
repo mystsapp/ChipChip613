@@ -130,12 +130,14 @@ namespace Data.Repository
                 list = list.Where(x => x.TrangThai == bool.Parse(trangThai)).ToList();
             }
             // search trang thai
-
+            
             // tinh tong tien
-            foreach(var item in list)
-            {
-                item.TongTienTheoNgay = list.Sum(x => x.ThanhTienLuu);
-            }
+            
+                foreach (var item in list)
+                {
+                    item.TongTienTheoNgay = list.Sum(x => x.ThanhTienLuu);
+                }
+
             // tinh tong tien
 
             // page the list

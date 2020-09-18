@@ -154,7 +154,7 @@
                         <tr class="table-info">
                             <th>#</th>
                             <th>STT</th>
-                            <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().Id)</th>
+                            @*<th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().Id)</th>*@
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().KhachHang)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuong)</th>
                             <th>@Html.DisplayNameFor(m => m.DonHangDtos.FirstOrDefault().SoLuongTT)</th>
@@ -204,7 +204,7 @@
                                     </div>
                                 </td>
                                 <td>@stt</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Id)</td>
+                                @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Id)</td>*@
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhachHang)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuongTT.ToString("N0"))</td>

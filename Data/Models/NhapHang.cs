@@ -30,7 +30,7 @@ namespace Data.Models
         [MaxLength(50), Column(TypeName = "varchar(50)")]
         public string DVT2 { get; set; }
 
-        [DisplayName("Dơn giá")]
+        [DisplayName("Đơn giá")]
         public decimal DonGia { get; set; }
 
         [DisplayName("Số lượng")]

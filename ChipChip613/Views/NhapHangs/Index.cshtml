@@ -74,11 +74,8 @@
                             
                             <div class="col-md-2">
                                 Tình trạng
-                                <select class="form-control" name="trangThai">
-                                    <option value="">-- Select --</option>
-                                    <option value="true">Còn hàng</option>
-                                    <option value="false">Hết hàng</option>
-                                    @*<option value="@ViewBag.trangThai" selected>@ViewBag.trangThai</option>*@
+                                <select class="form-control" name="trangThai"
+                                        asp-items="@(new SelectList(Model.TinhTrangs, "Name", "Name", ViewBag.tinhTrang))">
                                 </select>
                             </div>
 
@@ -103,16 +100,16 @@
                         <tr class="table-info">
                             <th>#</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().TenHang)</th>
-                            <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().DonGia)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().DVT)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().SoLuong)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().DVT2)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().SoLuong2)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().DonGia)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().ThanhTien)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().NgayNhap)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().TrangThai)</th>
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().SoLuongLuu)</th>
-                            <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().SoLuong2Luu)</th>
+                            @*<th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().SoLuong2Luu)</th>*@
                             <th>@Html.DisplayNameFor(m => m.NhapHangs.FirstOrDefault().ThanhTienLuu)</th>
 
                         </tr>
@@ -143,12 +140,11 @@
                                 </td>
 
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenHang)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.DonGia.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong)</td>
-
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT2)</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuong2)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.DonGia.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
                                 <td class="tdVal" data-id="@item.Id">
 
@@ -164,8 +160,8 @@
                                         <span class="badge badge-warning">Hết hàng</span>
                                     }
                                 </td>
-                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuongLuu.ToString("N0"))</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.SoLuong2Luu.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuongLuu)</td>
+                                @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuong2Luu)</td>*@
                                 <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTienLuu.ToString("N0"))</td>
                             </tr>
 
@@ -175,7 +171,15 @@
                 </table>
                 <span><strong>Tổng tiền: @Model.NhapHangs.Sum(x => x.ThanhTienLuu).ToString("N0")</strong></span>
                 <br />
-                <span><strong>Tổng tiền theo KQ tìm kiếm : @Model.NhapHangs.FirstOrDefault().TongTienTheoNgay.ToString("N0")</strong></span>
+                @if (Model.NhapHangs.Count > 0)
+                {
+                    <span><strong>Tổng tiền theo KQ tìm kiếm : @Model.NhapHangs.FirstOrDefault().TongTienTheoNgay.ToString("N0")</strong></span>
+                }
+                else
+                {
+                    <span><strong>Tổng tiền theo KQ tìm kiếm : không có dữ liệu </strong></span>
+                }
+
             </div>
 
             @if (Model.NhapHangs != null)
