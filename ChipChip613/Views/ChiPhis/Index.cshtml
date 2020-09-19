@@ -109,41 +109,41 @@
                         @foreach (var item in Model.ChiPhiDtos)
                         {
 
-                        <tr class="cursor-pointer ">
+                            <tr class="cursor-pointer ">
 
-                            <td>
-                                <div class="btn-group text-white" role="group">
-                                    <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
-                                    <a class="btn btn-success btn-sm" title="Chi tiết" asp-action="Details" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
-                                    <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">
+                                <td>
+                                    <div class="btn-group text-white" role="group">
+                                        <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-success btn-sm" title="Chi tiết" asp-action="Details" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
+                                        <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">
 
-                                        <span id="confirmDeleteSpan_@item.Id" style="display: none">
-                                            <span class="text-light">Xóa?</span>
-                                            <button type="submit" class="btn btn-danger">Yes</button>
-                                            <a href="#" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</a>
-                                        </span>
+                                            <span id="confirmDeleteSpan_@item.Id" style="display: none">
+                                                <span class="text-light">Xóa?</span>
+                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                                <a href="#" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</a>
+                                            </span>
 
-                                        <span id="deleteSpan_@item.Id">
-                                            <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></a>
-                                        </span>
-                                    </form>
-                                </div>
-                            </td>
+                                            <span id="deleteSpan_@item.Id">
+                                                <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></a>
+                                            </span>
+                                        </form>
+                                    </div>
+                                </td>
 
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenHangNhap)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ChiPhiKhac)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuong)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT2)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuong2)</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.Raw(item.DonGia.ToString("N0"))</td>
-                            <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
-                            <td class="tdVal" data-id="@item.Id">
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenHangNhap)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ChiPhiKhac)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuong)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DVT2)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuong2)</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.DonGia.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">@Html.Raw(item.ThanhTien.ToString("N0"))</td>
+                                <td class="tdVal" data-id="@item.Id">
 
-                                @Html.Raw(item.NgayTao.ToString("dd/MM/yyyy"))
-                            </td>
-                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.GhiChu)</td>
-                        </tr>
+                                    @Html.Raw(item.NgayTao.ToString("dd/MM/yyyy"))
+                                </td>
+                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.GhiChu)</td>
+                            </tr>
 
                         }
                     </tbody>
@@ -151,7 +151,15 @@
                 </table>
                 <span><strong>Tổng trang: @Html.Raw(Model.ChiPhiDtos.Sum(x => x.ThanhTien).ToString("N0")) VND</strong></span>
                 <br />
-                <span><strong>Tổng tiền: @Html.Raw(Model.ChiPhiDtos.FirstOrDefault().TongTien.ToString("N0")) VND</strong></span>
+                @if (Model.ChiPhiDtos.FirstOrDefault().TongTien > 0)
+                {
+                    <span><strong>Tổng tiền: @Html.Raw(Model.ChiPhiDtos.FirstOrDefault().TongTien.ToString("N0")) VND</strong></span>
+                }
+                else
+                {
+                    <span><strong>Tổng tiền: 0 VND</strong></span>
+
+                }
             </div>
 
             @if (Model.ChiPhiDtos != null)

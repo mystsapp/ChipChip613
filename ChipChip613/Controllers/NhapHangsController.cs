@@ -193,9 +193,9 @@ namespace ChipChip613.Controllers
         {
             return new List<ListViewModel>()
             {
-                new ListViewModel() { Id = 0, Name = "-- select --" },
-                new ListViewModel() { Id = 1, Name = "true" },
-                new ListViewModel() { Id = 2, Name = "false" }
+                new ListViewModel() { Value = "", Name = "-- select --" },
+                new ListViewModel() { Value = "true", Name = "Còn hàng" },
+                new ListViewModel() { Value = "false", Name = "Hết hàng" }
             };
 
         }

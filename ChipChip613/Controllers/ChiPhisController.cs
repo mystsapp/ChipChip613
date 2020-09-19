@@ -110,10 +110,7 @@ namespace ChipChip613.Controllers
             }
             
             ChiPhiVM.ChiPhi.NguoiTao = "Admin";
-            if (string.IsNullOrEmpty(ChiPhiVM.ChiPhi.ChiPhiKhac))
-            {
-                ChiPhiVM.ChiPhi.ChiPhiKhac = "";
-            }
+            
             try
             {
                 //  can tru ben hang nhap
@@ -185,6 +182,10 @@ namespace ChipChip613.Controllers
 
             if (ModelState.IsValid)
             {
+                if (string.IsNullOrEmpty(ChiPhiVM.ChiPhi.ChiPhiKhac))
+                {
+                    ChiPhiVM.ChiPhi.ChiPhiKhac = "";
+                }
                 try
                 {
                     //  can tru ben hang nhap //////////////////////////////////////////////////////////////
@@ -192,10 +193,7 @@ namespace ChipChip613.Controllers
                     if (ChiPhiVM.ChiPhi.NhapHangId != 0) // khi co chon hang nhap
                     {
                         nhapHang = _unitOfWork.nhapHangRepository.GetById(ChiPhiVM.ChiPhi.NhapHangId);
-                        if (string.IsNullOrEmpty(ChiPhiVM.ChiPhi.ChiPhiKhac))
-                        {
-                            ChiPhiVM.ChiPhi.ChiPhiKhac = "";
-                        }
+                        
                         // neu thay doi soluong
                         if (ChiPhiVM.SoLuongCu != ChiPhiVM.ChiPhi.SoLuong)
                         {
@@ -286,6 +284,7 @@ namespace ChipChip613.Controllers
                                         " SL2 = " + chiPhi.SoLuong2 +
                                         " thành tiền = " + chiPhi.ThanhTien +
                                         " ============";
+                    nhapHang.TrangThai = true;
 
                     _unitOfWork.nhapHangRepository.Update(nhapHang);
 
