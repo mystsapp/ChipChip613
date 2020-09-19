@@ -177,15 +177,81 @@ namespace ChipChip613.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(long id, string strUrl)
         {
+            string temp = "", log = "";
+
             if (id != ChiPhiVM.ChiPhi.Id)
                 return NotFound();
 
             if (ModelState.IsValid)
             {
+                ChiPhiVM.ChiPhi.NgaySua = DateTime.Now;
+                ChiPhiVM.ChiPhi.NguoiSua = "Admin";
+
+                // kiem tra thay doi : trong getbyid() va ngoai view
+                #region log file
+                //var t = _unitOfWork.tourRepository.GetById(id);
+                var t = _unitOfWork.chiPhiRepository.GetSingleNoTracking(x => x.Id == id);
+                if (t.NhapHangId != ChiPhiVM.ChiPhi.NhapHangId)
+                {
+                    temp += String.Format("- Tên nhập hàng thay đổi: {0}->{1}", 
+                        (t.NhapHangId == 0)?"0":_unitOfWork.nhapHangRepository.GetById(t.NhapHangId).TenHang,
+                        (ChiPhiVM.ChiPhi.NhapHangId == 0) ? "0" : _unitOfWork.nhapHangRepository.GetById(ChiPhiVM.ChiPhi.NhapHangId).TenHang);
+                }
+                if (t.ChiPhiKhac != ChiPhiVM.ChiPhi.ChiPhiKhac)
+                {
+                    temp += String.Format("- Chi phí khác thay đổi: {0}->{1}", t.ChiPhiKhac, ChiPhiVM.ChiPhi.ChiPhiKhac);
+                }
+                if (t.DVT != ChiPhiVM.ChiPhi.DVT)
+                {
+                    temp += String.Format("- DVT thay đổi: {0}->{1}", t.DVT, ChiPhiVM.ChiPhi.DVT);
+                }
+                if (t.SoLuong != ChiPhiVM.ChiPhi.SoLuong)
+                {
+                    temp += String.Format("- Số lượng thay đổi: {0}->{1}", t.SoLuong, ChiPhiVM.ChiPhi.SoLuong);
+                }
+                if (t.DVT2 != ChiPhiVM.ChiPhi.DVT2)
+                {
+                    temp += String.Format("- DVT2 thay đổi: {0}->{1}", t.DVT2, ChiPhiVM.ChiPhi.DVT2);
+                }
+                if (t.SoLuong2 != ChiPhiVM.ChiPhi.SoLuong2)
+                {
+                    temp += String.Format("- Số lượng 2 thay đổi: {0}->{1}", t.SoLuong2, ChiPhiVM.ChiPhi.SoLuong2);
+                }
+                if (t.DonGia != ChiPhiVM.ChiPhi.DonGia)
+                {
+                    temp += String.Format("- Đơn giá thay đổi: {0:N0}->{1:N0}", t.DonGia, ChiPhiVM.ChiPhi.DonGia);
+                }
+                if (t.ThanhTien != ChiPhiVM.ChiPhi.ThanhTien)
+                {
+                    temp += String.Format("- Thành tiền thay đổi: {0:N0}->{1:N0}", t.ThanhTien, ChiPhiVM.ChiPhi.ThanhTien);
+                }
+                if (t.NgayTao != ChiPhiVM.ChiPhi.NgayTao)
+                {
+                    temp += String.Format("- Ngày xuất thay đổi: {0:dd/MM/yyyy}->{1:dd/MM/yyyy}", t.NgayTao, ChiPhiVM.ChiPhi.NgayTao);
+                }
+                if (t.GhiChu != ChiPhiVM.ChiPhi.GhiChu)
+                {
+                    temp += String.Format("- Ghi chú thay đổi: {0}->{1}", t.GhiChu, ChiPhiVM.ChiPhi.GhiChu);
+                }
+                
+                #endregion
+                // kiem tra thay doi
+                if (temp.Length > 0)
+                {
+
+                    log = System.Environment.NewLine;
+                    log += "=============";
+                    log += System.Environment.NewLine;
+                    log += temp + " -User cập nhật tour: " + "Admin" + " vào lúc: " + System.DateTime.Now.ToString(); // username
+                    t.LogFile = t.LogFile + log;
+                    ChiPhiVM.ChiPhi.LogFile = t.LogFile;
+                }
+
                 if (string.IsNullOrEmpty(ChiPhiVM.ChiPhi.ChiPhiKhac))
                 {
                     ChiPhiVM.ChiPhi.ChiPhiKhac = "";
                 }
+
                 try
                 {
                     //  can tru ben hang nhap //////////////////////////////////////////////////////////////

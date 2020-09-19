@@ -151,7 +151,7 @@
                 </table>
                 <span><strong>Tổng trang: @Html.Raw(Model.ChiPhiDtos.Sum(x => x.ThanhTien).ToString("N0")) VND</strong></span>
                 <br />
-                @if (Model.ChiPhiDtos.FirstOrDefault().TongTien > 0)
+                @if (Model.ChiPhiDtos.Count != 0)
                 {
                     <span><strong>Tổng tiền: @Html.Raw(Model.ChiPhiDtos.FirstOrDefault().TongTien.ToString("N0")) VND</strong></span>
                 }

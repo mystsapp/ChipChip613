@@ -28,6 +28,9 @@
                 <input type="hidden" asp-for="ChiPhi.Id" />
                 <input type="hidden" asp-for="SoLuongCu" />
                 <input type="hidden" asp-for="SoLuong2Cu" />
+                <input type="hidden" asp-for="ChiPhi.NgayTao" />
+                <input type="hidden" asp-for="ChiPhi.NguoiTao" />
+
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-group row">
@@ -93,7 +96,7 @@
 
                     <div class="col-md-3">
                         <label asp-for="ChiPhi.NgayTao" class="control-label "></label>
-                        <input type="text" asp-for="ChiPhi.NgayTao" class="form-control maskInput" />
+                        <input type="text" asp-for="ChiPhi.NgayTao" class="form-control maskInput" asp-format="{0:dd/MM/yyyy}"/>
                         <span asp-validation-for="ChiPhi.NgayTao" class="text-danger"></span>
                     </div>
 

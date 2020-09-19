@@ -38,13 +38,23 @@ namespace Data.Models
 
         [DisplayName("Ngày xuất")]
         public DateTime? NgayTao { get; set; }
+        
+        public DateTime NgayTaoLuu { get; set; }
 
         [DisplayName("Người tạo")]
         [MaxLength(50), Column(TypeName = "varchar(50)")]
         public string NguoiTao { get; set; }
+        
+        public DateTime NgaySua { get; set; }
+
+        [DisplayName("Người sửa")]
+        [MaxLength(50), Column(TypeName = "varchar(50)")]
+        public string NguoiSua { get; set; }
 
         [DisplayName("Ghi chú")]
         [MaxLength(250), Column(TypeName = "nvarchar(250)")]
         public string GhiChu { get; set; }
+        
+        public string LogFile { get; set; }
     }
 }
