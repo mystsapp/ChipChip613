@@ -192,7 +192,10 @@ namespace ChipChip613.Controllers
                     if (ChiPhiVM.ChiPhi.NhapHangId != 0) // khi co chon hang nhap
                     {
                         nhapHang = _unitOfWork.nhapHangRepository.GetById(ChiPhiVM.ChiPhi.NhapHangId);
-
+                        if (string.IsNullOrEmpty(ChiPhiVM.ChiPhi.ChiPhiKhac))
+                        {
+                            ChiPhiVM.ChiPhi.ChiPhiKhac = "";
+                        }
                         // neu thay doi soluong
                         if (ChiPhiVM.SoLuongCu != ChiPhiVM.ChiPhi.SoLuong)
                         {
