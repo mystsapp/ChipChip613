@@ -110,6 +110,10 @@ namespace ChipChip613.Controllers
             }
             
             ChiPhiVM.ChiPhi.NguoiTao = "Admin";
+            if (string.IsNullOrEmpty(ChiPhiVM.ChiPhi.ChiPhiKhac))
+            {
+                ChiPhiVM.ChiPhi.ChiPhiKhac = "";
+            }
             try
             {
                 //  can tru ben hang nhap
