@@ -39,8 +39,8 @@
                         <label asp-for="ChiPhi.NhapHangId" class="control-label"></label>
 
                         <select asp-for="ChiPhi.NhapHangId" class="form-control border-input ddlHangNhap" id="ddlHangNhap"
-                                asp-items="@(new SelectList(Model.NhapHangs,"Id","TenHang"))">
-                            <option value="0">-- Khác --</option>
+                                asp-items="@(new SelectList(Model.ListNhapHang,"LongId","Name"))">
+                            @*<option value="0">-- Khác --</option>*@
                         </select>
 
                         <span asp-validation-for="ChiPhi.NhapHangId" class="text-danger"></span>

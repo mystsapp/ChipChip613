@@ -169,15 +169,19 @@
                     </tbody>
 
                 </table>
-                <span><strong>Tổng tiền: @Model.NhapHangs.Sum(x => x.ThanhTienLuu).ToString("N0")</strong></span>
+                <span><strong>Tổng tiền trên trang: @Model.NhapHangs.Sum(x => x.ThanhTienLuu).ToString("N0")</strong></span>
                 <br />
                 @if (Model.NhapHangs.Count > 0)
                 {
-                    <span><strong>Tổng tiền theo KQ tìm kiếm : @Model.NhapHangs.FirstOrDefault().TongTienTheoNgay.ToString("N0")</strong></span>
+                    <span><strong>Tổng tiền theo KQ tìm kiếm : @Model.NhapHangs.FirstOrDefault().TongTien.ToString("N0")</strong></span>
+                    <br />
+                    <span><strong>Tổng tiền lưu theo KQ tìm kiếm : @Model.NhapHangs.FirstOrDefault().TongTienLuu.ToString("N0")</strong></span>
                 }
                 else
                 {
                     <span><strong>Tổng tiền theo KQ tìm kiếm : không có dữ liệu </strong></span>
+                    <br />
+                    <span><strong>Tổng tiền lưu theo KQ tìm kiếm : không có dữ liệu </strong></span>
                 }
 
             </div>

@@ -69,6 +69,6 @@ namespace Data.Dtos
         public string LogFile { get; set; }
 
         public decimal TongTien { get; set; }
-        public decimal TongTienTheoNgay { get; set; }
+        public decimal TongTienLuu { get; set; }
     }
 }

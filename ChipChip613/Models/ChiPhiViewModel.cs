@@ -11,6 +11,7 @@ namespace ChipChip613.Models
     public class ChiPhiViewModel
     {
         public IPagedList<ChiPhiDto> ChiPhiDtos { get; set; }
+        public IEnumerable<ListViewModel> ListNhapHang { get; set; }
         public IEnumerable<NhapHang> NhapHangs { get; set; }
         public ChiPhi ChiPhi { get; set; }
         public string StrUrl { get; set; }

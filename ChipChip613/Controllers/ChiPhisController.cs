@@ -153,12 +153,24 @@ namespace ChipChip613.Controllers
         {
             ChiPhiVM.StrUrl = strUrl;
 
-            var listNhapHang = new List<NhapHang>();
-            foreach (var item in ChiPhiVM.NhapHangs.OrderByDescending(x => x.NgayNhap).Where(x => x.TrangThai))
+            var listNhapHang = new List<ListViewModel>();
+            foreach (var item in _unitOfWork.nhapHangRepository.GetAll().OrderByDescending(x => x.NgayNhap))
             {
-                listNhapHang.Add(new NhapHang() { Id = item.Id, TenHang = item.TenHang + " - " + item.NgayNhap.ToString("dd/MM/yyyy") });
+                string conHang;
+                if (item.TrangThai)
+                {
+                    conHang = "Còn hàng";
+                }
+                else
+                {
+                    conHang = "Hết hàng";
+                }
+                
+                listNhapHang.Add(new ListViewModel() {LongId = item.Id, Name = item.TenHang + " - " + item.NgayTao.ToString("dd/MM/yyyy") + " - " + conHang});
             }
-            ChiPhiVM.NhapHangs = listNhapHang;
+
+            listNhapHang.Insert(0, new ListViewModel() { LongId = 0, Name = "-- khác --"});
+            ChiPhiVM.ListNhapHang = listNhapHang;
 
             if (id == 0)
                 return NotFound();

@@ -21,7 +21,7 @@ namespace Data.Repository
 
         public IPagedList<NhapHangDto> ListNhapHang(string searchString, string searchFromDate, string searchToDate, string trangThai, int? page)
         {
-            
+
             // return a 404 if user browses to before the first page
             if (page.HasValue && page < 1)
                 return null;
@@ -30,9 +30,8 @@ namespace Data.Repository
 
             var nhapHangs = GetAll().AsQueryable();
             List<NhapHangDto> list = new List<NhapHangDto>();
-            var tongTien = nhapHangs.Sum(x => x.ThanhTien);
-
-            foreach(var item in nhapHangs)
+            
+            foreach (var item in nhapHangs)
             {
                 list.Add(new NhapHangDto()
                 {
@@ -56,7 +55,6 @@ namespace Data.Repository
                     TenHang = item.TenHang,
                     ThanhTien = item.ThanhTien,
                     ThanhTienLuu = item.ThanhTienLuu,
-                    TongTien = tongTien,
                     TrangThai = item.TrangThai
                 });
             }
@@ -130,13 +128,18 @@ namespace Data.Repository
                 list = list.Where(x => x.TrangThai == bool.Parse(trangThai)).ToList();
             }
             // search trang thai
-            
+
             // tinh tong tien
+
+            foreach (var item in list)
+            {
+                item.TongTien = list.Sum(x => x.ThanhTien);
+            }
             
-                foreach (var item in list)
-                {
-                    item.TongTienTheoNgay = list.Sum(x => x.ThanhTienLuu);
-                }
+            foreach (var item in list)
+            {
+                item.TongTienLuu = list.Sum(x => x.ThanhTienLuu);
+            }
 
             // tinh tong tien
 
