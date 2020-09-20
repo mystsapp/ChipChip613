@@ -173,15 +173,18 @@
                 <br />
                 @if (Model.NhapHangs.Count > 0)
                 {
-                    <span><strong>Tổng tiền theo KQ tìm kiếm : @Model.NhapHangs.FirstOrDefault().TongTien.ToString("N0")</strong></span>
+                    <span><strong>Tổng thành tiền : @Model.NhapHangs.FirstOrDefault().TongTien.ToString("N0")</strong></span>
                     <br />
-                    <span><strong>Tổng tiền lưu theo KQ tìm kiếm : @Model.NhapHangs.FirstOrDefault().TongTienLuu.ToString("N0")</strong></span>
+                    <span><strong>Tổng số lượng lưu : @Model.NhapHangs.FirstOrDefault().TongSoLuong.ToString("N0")</strong></span>
+                    <br />
+                    <span><strong>Tổng thành tiền lưu : @Model.NhapHangs.FirstOrDefault().TongTienLuu.ToString("N0")</strong></span>
+                    
                 }
                 else
                 {
-                    <span><strong>Tổng tiền theo KQ tìm kiếm : không có dữ liệu </strong></span>
+                    <span><strong>Tổng thành tiền : không có dữ liệu </strong></span>
                     <br />
-                    <span><strong>Tổng tiền lưu theo KQ tìm kiếm : không có dữ liệu </strong></span>
+                    <span><strong>Tổng thành tiền lưu : không có dữ liệu </strong></span>
                 }
 
             </div>

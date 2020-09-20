@@ -124,9 +124,11 @@ namespace Data.Repository
             }
             // tong tien
             var tongTien = list.Sum(x => x.ThanhTien);
+            var tongSoLuong = list.Sum(x => x.SoLuong);
             foreach(var item in list)
             {
                 item.TongTien = tongTien;
+                item.TongSoLuong = tongSoLuong;
             }
             // page the list
             const int pageSize = 10;

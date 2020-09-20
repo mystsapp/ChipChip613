@@ -94,6 +94,8 @@ namespace ChipChip613.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePost(string strUrl)
         {
+            string temp = "", log = "";
+
             if (!ModelState.IsValid)
             {
                 return View(ChiPhiVM);
@@ -115,10 +117,12 @@ namespace ChipChip613.Controllers
             {
                 //  can tru ben hang nhap
                 NhapHang nhapHang = new NhapHang();
+                NhapHang nhapHangTmp = new NhapHang();
                 // neu co chon tu hang nhap
                 if (ChiPhiVM.ChiPhi.NhapHangId != 0)
                 {
                     nhapHang = _unitOfWork.nhapHangRepository.GetById(ChiPhiVM.ChiPhi.NhapHangId);
+                    nhapHangTmp = _unitOfWork.nhapHangRepository.GetById(ChiPhiVM.ChiPhi.NhapHangId);
                     nhapHang.SoLuong = nhapHang.SoLuong - ChiPhiVM.ChiPhi.SoLuong;
                     if (nhapHang.SoLuong == 0)
                     {
@@ -134,6 +138,28 @@ namespace ChipChip613.Controllers
                     {
                         nhapHang.SoLuong2 = nhapHang.SoLuong2 - ChiPhiVM.ChiPhi.SoLuong2;
                     }
+                    // ghi log nhaphang
+                    if (nhapHangTmp.SoLuong != nhapHang.SoLuong)
+                    {
+                        temp += String.Format("- Số lượng thay đổi: {0}->{1}", nhapHangTmp.SoLuong, nhapHang.SoLuong);
+                    }
+                    if (nhapHangTmp.SoLuong != nhapHang.SoLuong)
+                    {
+                        temp += String.Format("- Số lượng thay đổi: {0}->{1}", nhapHangTmp.SoLuong, nhapHang.SoLuong);
+                    }
+
+                    // kiem tra thay doi
+                    if (temp.Length > 0)
+                    {
+
+                        log = System.Environment.NewLine;
+                        log += "=============";
+                        log += System.Environment.NewLine;
+                        log += temp + " -User cập nhật tour: " + "Admin" + " vào lúc: " + System.DateTime.Now.ToString(); // username
+                        nhapHangTmp.LogFile = nhapHangTmp.LogFile + log;
+                        nhapHang.LogFile = nhapHangTmp.LogFile;
+                    }
+
                     _unitOfWork.nhapHangRepository.Update(nhapHang);
                 }
                 //  can tru ben hang nhap

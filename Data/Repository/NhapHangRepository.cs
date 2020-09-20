@@ -133,11 +133,8 @@ namespace Data.Repository
 
             foreach (var item in list)
             {
+                item.TongSoLuong = list.Sum(x => x.SoLuongLuu);
                 item.TongTien = list.Sum(x => x.ThanhTien);
-            }
-            
-            foreach (var item in list)
-            {
                 item.TongTienLuu = list.Sum(x => x.ThanhTienLuu);
             }
 

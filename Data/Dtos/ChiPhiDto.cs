@@ -41,5 +41,6 @@ namespace Data.Dtos
         public string GhiChu { get; set; }
 
         public decimal TongTien { get; set; }
+        public decimal TongSoLuong { get; set; }
     }
 }

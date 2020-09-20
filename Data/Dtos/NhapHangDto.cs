@@ -70,5 +70,6 @@ namespace Data.Dtos
 
         public decimal TongTien { get; set; }
         public decimal TongTienLuu { get; set; }
+        public decimal TongSoLuong { get; set; }
     }
 }
