@@ -119,17 +119,17 @@ namespace ChipChip613.Controllers
             {
                 var nhapHang = _unitOfWork.nhapHangRepository.GetSingleNoTracking(x => x.Id == id);
                 
-                // neu co sua so luong ==> thanhtien thay doi
-                if(nhapHang.SoLuong != NhapHangVM.NhapHang.SoLuong)
-                {
-                    NhapHangVM.NhapHang.SoLuongLuu = NhapHangVM.NhapHang.SoLuong;
-                    NhapHangVM.NhapHang.ThanhTienLuu = NhapHangVM.NhapHang.ThanhTien;
-                }
-                // neu co sua don vi tinh
-                if (nhapHang.DVT != NhapHangVM.NhapHang.DVT)
-                {
-                    NhapHangVM.NhapHang.DVTLuu = NhapHangVM.NhapHang.DVT;
-                }
+                //// neu co sua so luong ==> thanhtien thay doi
+                //if(nhapHang.SoLuong != NhapHangVM.NhapHang.SoLuong)
+                //{
+                //    NhapHangVM.NhapHang.SoLuongLuu = NhapHangVM.NhapHang.SoLuong;
+                //    NhapHangVM.NhapHang.ThanhTienLuu = NhapHangVM.NhapHang.ThanhTien;
+                //}
+                //// neu co sua don vi tinh
+                //if (nhapHang.DVT != NhapHangVM.NhapHang.DVT)
+                //{
+                //    NhapHangVM.NhapHang.DVTLuu = NhapHangVM.NhapHang.DVT;
+                //}
 
                 try
                 {

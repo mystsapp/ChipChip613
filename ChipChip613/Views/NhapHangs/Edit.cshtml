@@ -106,6 +106,28 @@
                     </div>
 
                 </div>
+                
+                <div class="form-group row">
+
+                    <div class="col-md-4">
+                        <label asp-for="NhapHang.SoLuongLuu" class="control-label"></label>
+                        <input asp-for="NhapHang.SoLuongLuu" class="form-control numbers" asp-format="{0:0,0}"/>
+                        <span asp-validation-for="NhapHang.SoLuongLuu" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="NhapHang.DVTLuu" class="control-label"></label>
+                        <input asp-for="NhapHang.DVTLuu" class="form-control" />
+                        <span asp-validation-for="NhapHang.DVTLuu" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="NhapHang.ThanhTienLuu" class="control-label"></label>
+                        <input asp-for="NhapHang.ThanhTienLuu" class="form-control numbers" asp-format="{0:0,0}"/>
+                        <span asp-validation-for="NhapHang.ThanhTienLuu" class="text-danger"></span>
+                    </div>
+
+                </div>
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>

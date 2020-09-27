@@ -192,7 +192,7 @@ namespace ChipChip613.Controllers
                     conHang = "Hết hàng";
                 }
                 
-                listNhapHang.Add(new ListViewModel() {LongId = item.Id, Name = item.TenHang + " - " + item.NgayTao.ToString("dd/MM/yyyy") + " - " + conHang});
+                listNhapHang.Add(new ListViewModel() {LongId = item.Id, Name = item.TenHang + " - " + item.NgayNhap.ToString("dd/MM/yyyy") + " - " + conHang});
             }
 
             listNhapHang.Insert(0, new ListViewModel() { LongId = 0, Name = "-- khác --"});
