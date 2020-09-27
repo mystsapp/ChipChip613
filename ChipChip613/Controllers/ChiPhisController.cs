@@ -64,7 +64,7 @@ namespace ChipChip613.Controllers
             ChiPhiVM.StrUrl = strUrl;
 
             var listNhapHang = new List<NhapHang>();
-            foreach(var item in ChiPhiVM.NhapHangs.OrderByDescending(x => x.NgayNhap).Where(x => x.TrangThai))
+            foreach (var item in ChiPhiVM.NhapHangs.OrderByDescending(x => x.NgayNhap).Where(x => x.TrangThai))
             {
                 listNhapHang.Add(new NhapHang() { Id = item.Id, TenHang = item.TenHang + " - " + item.NgayNhap.ToString("dd/MM/yyyy") });
             }
@@ -84,8 +84,8 @@ namespace ChipChip613.Controllers
 
             }
             // frm DdlHangNhap change
-          
-          
+
+
             return View(ChiPhiVM);
         }
 
@@ -101,18 +101,18 @@ namespace ChipChip613.Controllers
                 return View(ChiPhiVM);
             }
 
-            if(ChiPhiVM.ChiPhi.NgayTao == null)
+            if (ChiPhiVM.ChiPhi.NgayTao == null)
             {
                 ChiPhiVM.ChiPhi.NgayTao = DateTime.Now;
             }
-            
-            if(string.IsNullOrEmpty(ChiPhiVM.ChiPhi.ChiPhiKhac))
+
+            if (string.IsNullOrEmpty(ChiPhiVM.ChiPhi.ChiPhiKhac))
             {
                 ChiPhiVM.ChiPhi.ChiPhiKhac = "";
             }
-            
+
             ChiPhiVM.ChiPhi.NguoiTao = "Admin";
-            
+
             try
             {
                 //  can tru ben hang nhap
@@ -133,7 +133,7 @@ namespace ChipChip613.Controllers
                     {
                         nhapHang.ThanhTien = nhapHang.ThanhTien - (ChiPhiVM.ChiPhi.SoLuong * ChiPhiVM.ChiPhi.DonGia);
                     }
-                    
+
                     if (ChiPhiVM.ChiPhi.SoLuong2 != 0 && nhapHang.SoLuong2 != 0)
                     {
                         nhapHang.SoLuong2 = nhapHang.SoLuong2 - ChiPhiVM.ChiPhi.SoLuong2;
@@ -191,11 +191,11 @@ namespace ChipChip613.Controllers
                 {
                     conHang = "Hết hàng";
                 }
-                
-                listNhapHang.Add(new ListViewModel() {LongId = item.Id, Name = item.TenHang + " - " + item.NgayNhap.ToString("dd/MM/yyyy") + " - " + conHang});
+
+                listNhapHang.Add(new ListViewModel() { LongId = item.Id, Name = item.TenHang + " - " + item.NgayNhap.ToString("dd/MM/yyyy") + " - " + conHang });
             }
 
-            listNhapHang.Insert(0, new ListViewModel() { LongId = 0, Name = "-- khác --"});
+            listNhapHang.Insert(0, new ListViewModel() { LongId = 0, Name = "-- khác --" });
             ChiPhiVM.ListNhapHang = listNhapHang;
 
             if (id == 0)
@@ -231,8 +231,8 @@ namespace ChipChip613.Controllers
                 var t = _unitOfWork.chiPhiRepository.GetSingleNoTracking(x => x.Id == id);
                 if (t.NhapHangId != ChiPhiVM.ChiPhi.NhapHangId)
                 {
-                    temp += String.Format("- Tên nhập hàng thay đổi: {0}->{1}", 
-                        (t.NhapHangId == 0)?"0":_unitOfWork.nhapHangRepository.GetById(t.NhapHangId).TenHang,
+                    temp += String.Format("- Tên nhập hàng thay đổi: {0}->{1}",
+                        (t.NhapHangId == 0) ? "0" : _unitOfWork.nhapHangRepository.GetById(t.NhapHangId).TenHang,
                         (ChiPhiVM.ChiPhi.NhapHangId == 0) ? "0" : _unitOfWork.nhapHangRepository.GetById(ChiPhiVM.ChiPhi.NhapHangId).TenHang);
                 }
                 if (t.ChiPhiKhac != ChiPhiVM.ChiPhi.ChiPhiKhac)
@@ -271,7 +271,7 @@ namespace ChipChip613.Controllers
                 {
                     temp += String.Format("- Ghi chú thay đổi: {0}->{1}", t.GhiChu, ChiPhiVM.ChiPhi.GhiChu);
                 }
-                
+
                 #endregion
                 // kiem tra thay doi
                 if (temp.Length > 0)
@@ -292,12 +292,13 @@ namespace ChipChip613.Controllers
 
                 try
                 {
+                    var chiPhi = _unitOfWork.chiPhiRepository.GetSingleNoTracking(x => x.Id == id);
                     //  can tru ben hang nhap //////////////////////////////////////////////////////////////
                     NhapHang nhapHang = new NhapHang();
-                    if (ChiPhiVM.ChiPhi.NhapHangId != 0) // khi co chon hang nhap
+                    if (ChiPhiVM.ChiPhi.NhapHangId == chiPhi.NhapHangId) // 
                     {
                         nhapHang = _unitOfWork.nhapHangRepository.GetById(ChiPhiVM.ChiPhi.NhapHangId);
-                        
+
                         // neu thay doi soluong
                         if (ChiPhiVM.SoLuongCu != ChiPhiVM.ChiPhi.SoLuong)
                         {
@@ -305,10 +306,10 @@ namespace ChipChip613.Controllers
                             var slBanDau = nhapHang.SoLuong + ChiPhiVM.SoLuongCu;
                             // can tru lai tu dau - sl con lai
                             nhapHang.SoLuong = slBanDau - ChiPhiVM.ChiPhi.SoLuong;
-
+                            nhapHang.ThanhTien = nhapHang.SoLuong * nhapHang.DonGia;
                         }
                         // neu thay doi soluong2
-                        if (ChiPhiVM.SoLuong2Cu != ChiPhiVM.ChiPhi.SoLuong)
+                        if (ChiPhiVM.SoLuong2Cu != ChiPhiVM.ChiPhi.SoLuong2)
                         {
                             // so luong 2 ban dau
                             var slBanDau2 = nhapHang.SoLuong2 + ChiPhiVM.SoLuong2Cu;
@@ -317,19 +318,23 @@ namespace ChipChip613.Controllers
 
                         }
 
-                        if (nhapHang.SoLuong == 0 || nhapHang.SoLuong2 == 0)
+                        if (nhapHang.SoLuong == 0 /*&& nhapHang.SoLuong2 == 0*/)
                         {
                             nhapHang.TrangThai = false;
                             // thanh tien con lai
                             nhapHang.ThanhTien = 0;
                         }
-                        else
-                        {
-                            // thanh tien con lai
-                            nhapHang.ThanhTien = nhapHang.ThanhTien - (ChiPhiVM.ChiPhi.SoLuong * ChiPhiVM.ChiPhi.DonGia);
-                        }
+                        //else
+                        //{
+                        //    // thanh tien con lai
+                        //    nhapHang.ThanhTien = nhapHang.ThanhTien - (ChiPhiVM.ChiPhi.SoLuong * ChiPhiVM.ChiPhi.DonGia);
+                        //}
 
                         _unitOfWork.nhapHangRepository.Update(nhapHang);
+                    }
+                    else
+                    {
+                        return NotFound();
                     }
                     //  can tru ben hang nhap ////////////////////////////////////////////////////////////////////////
 
@@ -372,7 +377,7 @@ namespace ChipChip613.Controllers
             var chiPhi = _unitOfWork.chiPhiRepository.GetById(id);
             if (chiPhi == null)
                 return NotFound();
-           
+
             try
             {
                 //  can tru lai hang` nhap
@@ -421,10 +426,10 @@ namespace ChipChip613.Controllers
             decimal sLuong2 = 0;
             decimal thanhTien = 0;
 
-            if(soLuong <= nhapHang.SoLuong) // con hang
+            if (soLuong <= nhapHang.SoLuong) // con hang
             {
                 status = true;
-                if(nhapHang.SoLuong2 != 0) // co dien sl 2
+                if (nhapHang.SoLuong2 != 0) // co dien sl 2
                 {
                     sLuong2 = (soLuong * nhapHang.SoLuong2) / nhapHang.SoLuong;
                 }
@@ -438,7 +443,34 @@ namespace ChipChip613.Controllers
                 thanhTien = thanhTien
             });
         }
-        
+        public JsonResult KiemTraSLEdit(decimal soLuong = 1, long hangNhapId = 0, long chiPhiId = 0)
+        {
+            var nhapHang = _unitOfWork.nhapHangRepository.GetById(hangNhapId);
+            var chiPhi = _unitOfWork.chiPhiRepository.GetById(chiPhiId);
+            bool status = false;
+            decimal sLuong2 = 0;
+            decimal thanhTien = 0;
+
+            var slBanDau = nhapHang.SoLuong + chiPhi.SoLuong;
+
+            if (soLuong <= slBanDau) // con hang
+            {
+                status = true;
+                if (nhapHang.SoLuong2 != 0) // co dien sl 2
+                {
+                    sLuong2 = (soLuong * nhapHang.SoLuong2) / nhapHang.SoLuong;
+                }
+                thanhTien = nhapHang.DonGia * soLuong;
+            }
+
+            return Json(new
+            {
+                status = status,
+                sLuong2 = sLuong2,
+                thanhTien = thanhTien
+            });
+        }
+
         public JsonResult KiemTraSL2(decimal soLuong2 = 1, long hangNhapId = 0)
         {
             var nhapHang = _unitOfWork.nhapHangRepository.GetById(hangNhapId);
@@ -446,10 +478,10 @@ namespace ChipChip613.Controllers
             decimal sLuong = 0;
             decimal thanhTien = 0;
 
-            if(soLuong2 <= nhapHang.SoLuong2) // con hang
+            if (soLuong2 <= nhapHang.SoLuong2) // con hang
             {
                 status = true;
-                if(nhapHang.SoLuong != 0) // co dien sl 2
+                if (nhapHang.SoLuong != 0) // co dien sl 2
                 {
                     sLuong = (soLuong2 * nhapHang.SoLuong) / nhapHang.SoLuong2;
                 }
@@ -462,6 +494,48 @@ namespace ChipChip613.Controllers
                 sLuong = sLuong,
                 thanhTien = thanhTien
             });
+        }
+
+        public JsonResult KiemTraSL2Edit(decimal soLuong2 = 1, long hangNhapId = 0, long chiPhiId = 0)
+        {
+            var nhapHang = _unitOfWork.nhapHangRepository.GetById(hangNhapId);
+            var chiPhi = _unitOfWork.chiPhiRepository.GetById(chiPhiId);
+            bool status = false;
+            decimal sLuong = 0;
+            decimal thanhTien = 0;
+
+            if (nhapHang.SoLuong2 > 0)
+            {
+                var slBanDau = nhapHang.SoLuong2 + chiPhi.SoLuong2;
+                if (soLuong2 <= slBanDau) // con hang
+                {
+                    status = true;
+                    if (nhapHang.SoLuong != 0) // co dien sl 2
+                    {
+                        sLuong = (soLuong2 * nhapHang.SoLuong) / nhapHang.SoLuong2;
+                    }
+                    thanhTien = nhapHang.DonGia * sLuong;
+                }
+
+                return Json(new
+                {
+                    status = status,
+                    sLuong = sLuong,
+                    thanhTien = thanhTien
+                });
+
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = true,
+                    sLuong = sLuong,
+                    thanhTien = thanhTien
+                });
+            }
+           
+
         }
     }
 }

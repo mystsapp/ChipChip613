@@ -9,7 +9,11 @@ var editController = {
         editController.registerEven();
     },
     registerEven: function () {
-
+        $('#ddlHangNhap').off('change').on('change', function () {
+            window.location.reload();
+            bootbox.alert("Không được thay đổi tên hàng!");
+            
+        });
         // format .numbers
         $('input.numbers').keyup(function (event) {
 
@@ -39,13 +43,15 @@ var editController = {
     txtSoLuong2BlurFunction: function () { // kt so luong hang va sl2 neu co
         var soLuong2 = $('.txtSoLuong2').val();
         hangNhapId = $('.ddlHangNhap').val();
+        chiPhiId = $('#hidChiPhiId').val();
 
         $.ajax({
-            url: '/ChiPhis/KiemTraSL2',
+            url: '/ChiPhis/KiemTraSL2Edit',
             type: 'GET',
             data: {
                 soLuong2: soLuong2,
-                hangNhapId: hangNhapId
+                hangNhapId: hangNhapId,
+                chiPhiId: chiPhiId
             },
             dataType: 'json',
             success: function (response) {
@@ -70,13 +76,15 @@ var editController = {
     txtSoLuongBlurFunction: function () { // kt so luong hang va sl2 neu co
         var soLuong = $('.txtSoLuong').val();
         hangNhapId = $('.ddlHangNhap').val();
+        chiPhiId = $('#hidChiPhiId').val();
 
         $.ajax({
-            url: '/ChiPhis/KiemTraSL',
+            url: '/ChiPhis/KiemTraSLEdit',
             type: 'GET',
             data: {
                 soLuong: soLuong,
-                hangNhapId: hangNhapId
+                hangNhapId: hangNhapId,
+                chiPhiId: chiPhiId
             },
             dataType: 'json',
             success: function (response) {

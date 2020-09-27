@@ -25,7 +25,7 @@
         <form method="post" autocomplete="off">
             <div class="p-4 border rounded bg-secondary">
 
-                <input type="hidden" asp-for="ChiPhi.Id" />
+                <input type="hidden" asp-for="ChiPhi.Id" id="hidChiPhiId"/>
                 <input type="hidden" asp-for="SoLuongCu" />
                 <input type="hidden" asp-for="SoLuong2Cu" />
                 <input type="hidden" asp-for="ChiPhi.NgayTao" />
@@ -39,10 +39,10 @@
                         <label asp-for="ChiPhi.NhapHangId" class="control-label"></label>
 
                         <select asp-for="ChiPhi.NhapHangId" class="form-control border-input ddlHangNhap" id="ddlHangNhap"
-                                asp-items="@(new SelectList(Model.ListNhapHang,"LongId","Name"))">
-                            @*<option value="0">-- Khác --</option>*@
+                                asp-items="@(new SelectList(Model.ListNhapHang,"LongId","Name"))" >
+                            
                         </select>
-
+                        
                         <span asp-validation-for="ChiPhi.NhapHangId" class="text-danger"></span>
                     </div>
 
@@ -86,7 +86,7 @@
 
                     <div class="col-md-2">
                         <label asp-for="ChiPhi.ThanhTien" class="control-label"></label>
-                        <input asp-for="ChiPhi.ThanhTien" class="form-control numbers txtThanhTien" />
+                        <input asp-for="ChiPhi.ThanhTien" class="form-control numbers txtThanhTien" asp-format="{0:0,0}"/>
                         <span asp-validation-for="ChiPhi.ThanhTien" class="text-danger"></span>
                     </div>
 
@@ -117,10 +117,10 @@
 
         <!--ddlNhapHang change-->
 
-        <form asp-action="Create" method="get" id="frmDdlHangNhap">
+        @*<form asp-action="Create" method="get" id="frmDdlHangNhap">
             <input type="hidden" name="ddlHangNhapId" id="hidDdlHangNhap" />
             <input type="hidden" name="strUrl" id="hidStrUrl" asp-for="StrUrl" />
-        </form>
+        </form>*@
 
         <!--ddlNhapHang change-->
     </div>
@@ -141,14 +141,14 @@
     <script src="~/js/ChiPhi/editController.js"></script>
 
     <script>
-        $('.ddlHangNhap').change(function () {
-            ddlHangNhapId = $(this).val();
+        //$('.ddlHangNhap').change(function () {
+        //    ddlHangNhapId = $(this).val();
 
-            $('#hidDdlHangNhap').val(ddlHangNhapId);
+        //    $('#hidDdlHangNhap').val(ddlHangNhapId);
 
 
-            $('#frmDdlHangNhap').submit();
-        })
+        //    $('#frmDdlHangNhap').submit();
+        //})
 
     </script>
 
