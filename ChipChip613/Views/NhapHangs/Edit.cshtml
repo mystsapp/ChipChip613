@@ -73,7 +73,7 @@
 
                     <div class="col-md-3">
                         <label asp-for="NhapHang.NgayNhap" class="control-label"></label>
-                        <input type="text" asp-for="NhapHang.NgayNhap" class="form-control maskInput" />
+                        <input type="text" asp-for="NhapHang.NgayNhap" class="form-control maskInput" asp-format="{0:dd/MM/yyyy}" />
                         <span asp-validation-for="NhapHang.NgayNhap" class="text-danger"></span>
                     </div>
 
@@ -111,7 +111,7 @@
 
                     <div class="col-md-4">
                         <label asp-for="NhapHang.SoLuongLuu" class="control-label"></label>
-                        <input asp-for="NhapHang.SoLuongLuu" class="form-control numbers" asp-format="{0:0,0}"/>
+                        <input type="text" asp-for="NhapHang.SoLuongLuu" class="form-control numbers" />
                         <span asp-validation-for="NhapHang.SoLuongLuu" class="text-danger"></span>
                     </div>
 

@@ -194,11 +194,11 @@
                                             <span id="confirmDeleteSpan_@item.Id" style="display: none">
                                                 <span class="text-dark">Xóa?</span>
                                                 <button type="submit" class="btn btn-danger">Yes</button>
-                                                <a href="#" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</a>
+                                                <button type="button" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</button>
                                             </span>
 
                                             <span id="deleteSpan_@item.Id">
-                                                <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></a>
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
                                             </span>
                                         </form>
                                     </div>
@@ -283,6 +283,17 @@
     @*<script src="~/js/Admin/NganhNghe/indexController.js"></script>*@
 
     <script>
+
+        $('.cursor-pointer').click(function () {
+            if ($(this).hasClass("bg-warning"))
+                $(this).removeClass("bg-warning");
+            else {
+                $('tr.bg-warning').removeClass("bg-warning");
+                $(this).addClass("bg-warning");
+            }
+
+        });
+
         function confirmDelete(uniqueId, isDeleteClicked) {
             var deleteSpan = 'deleteSpan_' + uniqueId;
             var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
@@ -308,7 +319,7 @@
         }
 
         .tblEMD .cursor-pointer:hover {
-            background-color: #3E5C9A;
+            background-color: #FFC107;
             cursor: pointer;
         }
 

@@ -21,6 +21,16 @@ var indexController = {
             });
         });
 
+        $('.cursor-pointer').click(function () {
+            if ($(this).hasClass("bg-warning"))
+                $(this).removeClass("bg-warning");
+            else {
+                $('tr.bg-warning').removeClass("bg-warning");
+                $(this).addClass("bg-warning");
+            }
+
+        });
+
 
 
     }

@@ -94,7 +94,7 @@ namespace ChipChip613.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePost(string strUrl)
         {
-            string temp = "", log = "";
+            string temp = "";
 
             if (!ModelState.IsValid)
             {
@@ -152,7 +152,7 @@ namespace ChipChip613.Controllers
                     if (temp.Length > 0)
                     {
 
-                        log = System.Environment.NewLine;
+                        string log = System.Environment.NewLine;
                         log += "=============";
                         log += System.Environment.NewLine;
                         log += temp + " -User cập nhật tour: " + "Admin" + " vào lúc: " + System.DateTime.Now.ToString(); // username

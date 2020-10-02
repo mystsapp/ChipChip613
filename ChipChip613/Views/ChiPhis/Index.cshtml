@@ -112,19 +112,19 @@
                             <tr class="cursor-pointer ">
 
                                 <td>
-                                    <div class="btn-group text-white" role="group">
+                                    <div class="btn-group " role="group">
                                         <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
                                         <a class="btn btn-success btn-sm" title="Chi tiết" asp-action="Details" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
                                         <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">
 
                                             <span id="confirmDeleteSpan_@item.Id" style="display: none">
-                                                <span class="text-light">Xóa?</span>
+                                                <span >Xóa?</span>
                                                 <button type="submit" class="btn btn-danger">Yes</button>
-                                                <a href="#" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</a>
+                                                <button type="button" class="btn btn-primary" onclick="confirmDelete('@item.Id', false)">No</button>
                                             </span>
 
                                             <span id="deleteSpan_@item.Id">
-                                                <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></a>
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
                                             </span>
                                         </form>
                                     </div>
@@ -236,7 +236,7 @@
         });
     </script>
     @*<script src="~/js/Admin/NganhNghe/indexController.js"></script>*@
-
+<script src="~/js/ChiPhi/indexController.js"></script>
     <script>
         function confirmDelete(uniqueId, isDeleteClicked) {
             var deleteSpan = 'deleteSpan_' + uniqueId;
@@ -263,7 +263,7 @@
         }
 
         .tblEMD .cursor-pointer:hover {
-            background-color: #3E5C9A;
+            background-color: #FFC107;
             cursor: pointer;
         }
 
