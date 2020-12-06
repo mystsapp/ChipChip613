@@ -177,16 +177,18 @@
                                     <div class="btn-group text-white" role="group">
 
 
-                                        @if (item.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString())
-                                        {
-                                            <a class="btn btn-success btn-sm" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
+                                        @*@if (item.NgayTao.ToShortDateString() == DateTime.Now.ToShortDateString())
+        {
+            <a class="btn btn-success btn-sm" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
 
-                                        }
-                                        else
-                                        {
-                                            <a class="btn btn-success btn-sm disabled" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
+        }
+        else
+        {
+            <a class="btn btn-success btn-sm disabled" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
 
-                                        }
+        }*@
+
+                                        <a class="btn btn-success btn-sm" title="Thêm chi tiết" asp-action="Create" asp-controller="ChiTietDonHangs" asp-route-donHangId="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i></a>
                                         <a class="btn btn-primary btn-sm" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
                                         @*<a class="btn btn-success btn-sm" title="Chi tiết" asp-action="Details" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
                                         <form asp-action="Delete" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl" method="post">

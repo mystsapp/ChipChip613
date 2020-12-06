@@ -298,39 +298,43 @@ namespace ChipChip613.Controllers
                     if (ChiPhiVM.ChiPhi.NhapHangId == chiPhi.NhapHangId) // 
                     {
                         nhapHang = _unitOfWork.nhapHangRepository.GetById(ChiPhiVM.ChiPhi.NhapHangId);
-
-                        // neu thay doi soluong
-                        if (ChiPhiVM.SoLuongCu != ChiPhiVM.ChiPhi.SoLuong)
+                        if (nhapHang != null) // null khi dang sua chiphikhac
                         {
-                            // so luong ban dau truoc khi thay doi
-                            var slBanDau = nhapHang.SoLuong + ChiPhiVM.SoLuongCu;
-                            // can tru lai tu dau - sl con lai
-                            nhapHang.SoLuong = slBanDau - ChiPhiVM.ChiPhi.SoLuong;
-                            nhapHang.ThanhTien = nhapHang.SoLuong * nhapHang.DonGia;
-                        }
-                        // neu thay doi soluong2
-                        if (ChiPhiVM.SoLuong2Cu != ChiPhiVM.ChiPhi.SoLuong2)
-                        {
-                            // so luong 2 ban dau
-                            var slBanDau2 = nhapHang.SoLuong2 + ChiPhiVM.SoLuong2Cu;
-                            // can tru lai tu dau - sl con lai
-                            nhapHang.SoLuong2 = slBanDau2 - ChiPhiVM.ChiPhi.SoLuong2;
+                            // neu thay doi soluong
+                            if (ChiPhiVM.SoLuongCu != ChiPhiVM.ChiPhi.SoLuong)
+                            {
+                                // so luong ban dau truoc khi thay doi
+                                var slBanDau = nhapHang.SoLuong + ChiPhiVM.SoLuongCu;
+                                // can tru lai tu dau - sl con lai
+                                nhapHang.SoLuong = slBanDau - ChiPhiVM.ChiPhi.SoLuong;
+                                nhapHang.ThanhTien = nhapHang.SoLuong * nhapHang.DonGia;
+                            }
+                            // neu thay doi soluong2
+                            if (ChiPhiVM.SoLuong2Cu != ChiPhiVM.ChiPhi.SoLuong2)
+                            {
+                                // so luong 2 ban dau
+                                var slBanDau2 = nhapHang.SoLuong2 + ChiPhiVM.SoLuong2Cu;
+                                // can tru lai tu dau - sl con lai
+                                nhapHang.SoLuong2 = slBanDau2 - ChiPhiVM.ChiPhi.SoLuong2;
 
+                            }
+
+                            if (nhapHang.SoLuong == 0 /*&& nhapHang.SoLuong2 == 0*/)
+                            {
+                                nhapHang.TrangThai = false;
+                                // thanh tien con lai
+                                nhapHang.ThanhTien = 0;
+                            }
+                            //else
+                            //{
+                            //    // thanh tien con lai
+                            //    nhapHang.ThanhTien = nhapHang.ThanhTien - (ChiPhiVM.ChiPhi.SoLuong * ChiPhiVM.ChiPhi.DonGia);
+                            //}
+
+                            _unitOfWork.nhapHangRepository.Update(nhapHang);
                         }
 
-                        if (nhapHang.SoLuong == 0 /*&& nhapHang.SoLuong2 == 0*/)
-                        {
-                            nhapHang.TrangThai = false;
-                            // thanh tien con lai
-                            nhapHang.ThanhTien = 0;
-                        }
-                        //else
-                        //{
-                        //    // thanh tien con lai
-                        //    nhapHang.ThanhTien = nhapHang.ThanhTien - (ChiPhiVM.ChiPhi.SoLuong * ChiPhiVM.ChiPhi.DonGia);
-                        //}
-
-                        _unitOfWork.nhapHangRepository.Update(nhapHang);
+                        
                     }
                     else
                     {
@@ -534,7 +538,7 @@ namespace ChipChip613.Controllers
                     thanhTien = thanhTien
                 });
             }
-           
+
 
         }
     }
